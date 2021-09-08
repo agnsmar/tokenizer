@@ -10,6 +10,10 @@
     "lint:fix": "npx eslint ./src --fix || exit 0",
     "test": "npx mocha --recursive || exit 0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.lnu.se:1dv610/student/dw222fy/l1.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
