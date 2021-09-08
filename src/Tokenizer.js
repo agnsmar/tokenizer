@@ -1,9 +1,10 @@
 export class Tokenizer {
-  constructor() {
-
+  constructor (grammar, sentence) {
+    this.grammar = grammar
+    this.sentence = sentence
   }
 
-  sayHello() {
+  sayHello () {
     console.log('Hello')
 
     return 'Hello'
