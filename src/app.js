@@ -1,5 +1,9 @@
+import { Grammar } from './Grammar.js'
 import { Tokenizer } from './Tokenizer.js'
 
-const testTokenizer = new Tokenizer('grammar', 'Some long sentence or something.')
+const regex = /^[\w|åäöÅÄÖ]+/
+const wordAndDotGrammar = new Grammar(regex)
 
-testTokenizer.showTokens()
+const testTokenizer = new Tokenizer(wordAndDotGrammar, 'Meningen består av ord.')
+
+testTokenizer.tokenize()
