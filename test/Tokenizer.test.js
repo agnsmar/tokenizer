@@ -6,10 +6,10 @@ import chai from 'chai'
 import { Tokenizer } from '../src/Tokenizer.js'
 
 const expect = chai.expect
-const testTokenizer = new Tokenizer()
 
-describe('hello', () => {
-  it('says hello', () => {
-    expect(testTokenizer.sayHello()).to.equal('Hello')
+describe('Example 1', () => {
+  it('Meningen består av ord.', () => {
+    const textTokenizer = new Tokenizer('grammar', 'Meningen består av ord.')
+    expect(textTokenizer.showTokens()).to.eql(['Meningen', 'består', 'av', 'ord', '.'])
   })
 })

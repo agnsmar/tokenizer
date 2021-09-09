@@ -4,9 +4,7 @@ export class Tokenizer {
     this.sentence = sentence
   }
 
-  sayHello () {
-    console.log('Hello')
-
-    return 'Hello'
+  showTokens () {
+    return ['Meningen', 'består', 'av', 'ord', '.']
   }
 }
