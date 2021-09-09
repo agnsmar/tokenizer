@@ -8,8 +8,10 @@ import { Tokenizer } from '../src/Tokenizer.js'
 const expect = chai.expect
 
 describe('Example 1', () => {
-  it('Meningen består av ord.', () => {
-    const textTokenizer = new Tokenizer('grammar', 'Meningen består av ord.')
-    expect(textTokenizer.showTokens()).to.eql(['Meningen', 'består', 'av', 'ord', '.'])
+  describe('return value', () => {
+    it('\'Meningen består av ord\' should return [\'Meningen\', \'består\', \'av\', \'ord\', \'.\']', () => {
+      const textTokenizer = new Tokenizer('grammar', 'Meningen består av ord.')
+      expect(textTokenizer.showTokens()).to.eql(['Meningen', 'består', 'av', 'ord', '.'])
+    })
   })
 })
