@@ -1,3 +1,5 @@
+import { Token } from './Token.js'
+
 export class Tokenizer {
   constructor (grammar, string) {
     this.grammar = grammar
@@ -6,13 +8,23 @@ export class Tokenizer {
   }
 
   tokenize () {
-    const regex = this.grammar.getGrammar()
+    const types = this.grammar.getTokenTypes()
+    while (this.string.length > 0) {
+      const matchedTokens = []
+      for (let i = 0; i < types.length; i++) {
+        const type = types[i]
+        this.trimString()
+        const tokenValue = this.matchTokenToRegex(type.regex)
+        if (tokenValue) {
+          const token = new Token(type.name, tokenValue)
+          matchedTokens.push(token)
+        }
+      }
 
-    for (let i = 0; i < 4; i++) {
-      this.trimString()
-      const token = this.matchTokenToRegex(regex)
-      this.addTokenToCollection(token)
-      this.string = this.string.replace(token, '')
+      if (matchedTokens.length === 1) {
+        this.addTokenToCollection(matchedTokens[0])
+        this.string = this.string.replace(matchedTokens[0].value, '')
+      }
     }
   }
 
@@ -25,7 +37,10 @@ export class Tokenizer {
   }
 
   matchTokenToRegex (regex) {
-    const token = this.string.match(regex)[0]
+    let token = this.string.match(regex)
+    if (token) {
+      token = token[0]
+    }
     return token
   }
 
