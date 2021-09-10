@@ -24,6 +24,14 @@ export class Tokenizer {
       if (matchedTokens.length === 1) {
         this.addTokenToCollection(matchedTokens[0])
         this.string = this.string.replace(matchedTokens[0].value, '')
+      } else if (matchedTokens.length > 1) {
+        let tokenWithMostMatchedCharacters = matchedTokens[0]
+        for (let i = 1; i < matchedTokens.length; i++) {
+          const currentToken = matchedTokens[i]
+          if (currentToken.hasMoreMatchedCharactersThan(tokenWithMostMatchedCharacters)) {
+            tokenWithMostMatchedCharacters = currentToken
+          }
+        }
       }
     }
   }

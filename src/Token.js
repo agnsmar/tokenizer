@@ -4,7 +4,7 @@ export class Token {
     this.value = value
   }
 
-  hasMoreMatchedCharactersThan (otherValue) {
-    return this.value.length > otherValue.length
+  hasMoreMatchedCharactersThan (otherToken) {
+    return this.value.length > otherToken.value.length
   }
 }
