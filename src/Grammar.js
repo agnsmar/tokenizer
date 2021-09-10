@@ -1,9 +1,13 @@
 export class Grammar {
-  constructor (regex) {
-    this.token = regex
+  constructor () {
+    this.tokenTypes = []
   }
 
-  getGrammar () {
-    return this.token
+  getTokenTypes () {
+    return this.tokenTypes
+  }
+
+  addTokenType (token) {
+    this.tokenTypes.push(token)
   }
 }
