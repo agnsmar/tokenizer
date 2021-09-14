@@ -10,24 +10,28 @@ import { TokenType } from '../src/TokenType.js'
 const expect = chai.expect
 const ex1Result = [
   {
-    type: 'Word',
+    type: 'WORD',
     value: 'Meningen'
   },
   {
-    type: 'Word',
+    type: 'WORD',
     value: 'består'
   },
   {
-    type: 'Word',
+    type: 'WORD',
     value: 'av'
   },
   {
-    type: 'Word',
+    type: 'WORD',
     value: 'ord'
   },
   {
-    type: 'Dot',
+    type: 'DOT',
     value: '.'
+  },
+  {
+    type: 'END',
+    value: null
   }]
 const ex1ResultString = ex1Result.map((token) => {
   return `\n\t${token.type}('${token.value}')`
@@ -45,6 +49,10 @@ const ex2Result = [
   {
     type: 'NUMBER',
     value: '2'
+  },
+  {
+    type: 'END',
+    value: null
   }]
 const ex2ResultString = ex2Result.map((token) => {
   return `\n\t${token.type}('${token.value}')`
@@ -58,6 +66,10 @@ const ex3Result = [
   {
     type: 'INTEGER',
     value: '5'
+  },
+  {
+    type: 'END',
+    value: null
   }]
 const ex3ResultString = ex3Result.map((token) => {
   return `\n\t${token.type}('${token.value}')`
@@ -66,8 +78,8 @@ const ex3ResultString = ex3Result.map((token) => {
 describe('wordAndDotGrammar [Example 1]', () => {
   describe('return value', () => {
     it(`'Meningen består av ord' should return ${ex1ResultString}`, () => {
-      const word = new TokenType('Word', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('Dot', /^\./)
+      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+      const dot = new TokenType('DOT', /^\./)
       const wordAndDotGrammar = new Grammar()
       wordAndDotGrammar.addTokenType(word)
       wordAndDotGrammar.addTokenType(dot)
