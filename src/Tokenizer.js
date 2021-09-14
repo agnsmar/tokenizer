@@ -33,6 +33,8 @@ export class Tokenizer {
               tokenWithMostMatchedCharacters = currentToken
             }
           }
+          this.addTokenToCollection(tokenWithMostMatchedCharacters)
+          this.string = this.string.replace(tokenWithMostMatchedCharacters.value, '')
         }
         if (matchedTokens.length === 0) {
           throw new Error(`No lexical element matches ${this.string}`)
