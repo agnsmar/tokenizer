@@ -50,6 +50,19 @@ const ex2ResultString = ex2Result.map((token) => {
   return `\n\t${token.type}('${token.value}')`
 })
 
+const ex3Result = [
+  {
+    type: 'FLOAT',
+    value: '3.14'
+  },
+  {
+    type: 'INTEGER',
+    value: '5'
+  }]
+const ex3ResultString = ex3Result.map((token) => {
+  return `\n\t${token.type}('${token.value}')`
+})
+
 describe('Example 1 - wordAndDotGrammar', () => {
   describe('return value', () => {
     it(`'Meningen består av ord' should return ${ex1ResultString}`, () => {
@@ -82,6 +95,26 @@ describe('Example 2 - arithmeticGrammar', () => {
       arithmeticTokenizer.tokenize()
 
       expect(arithmeticTokenizer.getTokens()).to.eql(ex2Result)
+    })
+  })
+})
+
+describe('Example 3 - maximalMunchGrammar', () => {
+  describe('return value', () => {
+    it(`'3.14 5' should return ${ex3ResultString}`, () => {
+      const float = new TokenType('FLOAT', /^[0-9]+\.[0-9]+/)
+      const integer = new TokenType('INTEGER', /^[0-9]+/)
+
+      const maximalMunchGrammar = new Grammar()
+
+      maximalMunchGrammar.addTokenType(float)
+      maximalMunchGrammar.addTokenType(integer)
+
+      const maximalMunchTokenizer = new Tokenizer(maximalMunchGrammar, '3.14 5')
+
+      maximalMunchTokenizer.tokenize()
+      maximalMunchTokenizer.getTokens()
+      expect(maximalMunchTokenizer.getTokens()).to.eql(ex3Result)
     })
   })
 })
