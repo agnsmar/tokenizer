@@ -8,31 +8,38 @@ export class Tokenizer {
   }
 
   tokenize () {
-    const types = this.grammar.getTokenTypes()
-    while (this.string.length > 0) {
-      const matchedTokens = []
-      for (let i = 0; i < types.length; i++) {
-        const type = types[i]
-        this.trimString()
-        const tokenValue = this.matchTokenToRegex(type.regex)
-        if (tokenValue) {
-          const token = new Token(type.name, tokenValue)
-          matchedTokens.push(token)
-        }
-      }
-
-      if (matchedTokens.length === 1) {
-        this.addTokenToCollection(matchedTokens[0])
-        this.string = this.string.replace(matchedTokens[0].value, '')
-      } else if (matchedTokens.length > 1) {
-        let tokenWithMostMatchedCharacters = matchedTokens[0]
-        for (let i = 1; i < matchedTokens.length; i++) {
-          const currentToken = matchedTokens[i]
-          if (currentToken.hasMoreMatchedCharactersThan(tokenWithMostMatchedCharacters)) {
-            tokenWithMostMatchedCharacters = currentToken
+    try {
+      const types = this.grammar.getTokenTypes()
+      while (this.string.length > 0) {
+        const matchedTokens = []
+        for (let i = 0; i < types.length; i++) {
+          const type = types[i]
+          this.trimString()
+          const tokenValue = this.matchTokenToRegex(type.regex)
+          if (tokenValue) {
+            const token = new Token(type.name, tokenValue)
+            matchedTokens.push(token)
           }
         }
+
+        if (matchedTokens.length === 1) {
+          this.addTokenToCollection(matchedTokens[0])
+          this.string = this.string.replace(matchedTokens[0].value, '')
+        } else if (matchedTokens.length > 1) {
+          let tokenWithMostMatchedCharacters = matchedTokens[0]
+          for (let i = 1; i < matchedTokens.length; i++) {
+            const currentToken = matchedTokens[i]
+            if (currentToken.hasMoreMatchedCharactersThan(tokenWithMostMatchedCharacters)) {
+              tokenWithMostMatchedCharacters = currentToken
+            }
+          }
+        }
+        if (matchedTokens.length === 0) {
+          throw new Error(`No lexical element matches ${this.string}`)
+        }
       }
+    } catch (error) {
+      console.log(error.message)
     }
   }
 
