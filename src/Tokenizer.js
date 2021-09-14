@@ -41,6 +41,7 @@ export class Tokenizer {
           throw new Error(`No lexical element matches ${this.string}`)
         }
       }
+      this.addTokenToCollection(this.endToken)
     } catch (error) {
       console.log(error.message)
     }
