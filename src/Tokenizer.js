@@ -5,6 +5,7 @@ export class Tokenizer {
     this.grammar = grammar
     this.string = string
     this.tokens = []
+    this.endToken = new Token('END', null)
   }
 
   tokenize () {
