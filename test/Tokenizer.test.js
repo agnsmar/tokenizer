@@ -63,7 +63,7 @@ const ex3ResultString = ex3Result.map((token) => {
   return `\n\t${token.type}('${token.value}')`
 })
 
-describe('Example 1 - wordAndDotGrammar', () => {
+describe('wordAndDotGrammar [Example 1]', () => {
   describe('return value', () => {
     it(`'Meningen består av ord' should return ${ex1ResultString}`, () => {
       const word = new TokenType('Word', /^[\w|åäöÅÄÖ]+/)
@@ -79,7 +79,7 @@ describe('Example 1 - wordAndDotGrammar', () => {
   })
 })
 
-describe('Example 2 - arithmeticGrammar', () => {
+describe('arithmeticGrammar [Example 2]', () => {
   describe('return value', () => {
     it(`'3 + 2' should return ${ex2ResultString}`, () => {
       const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
@@ -99,7 +99,7 @@ describe('Example 2 - arithmeticGrammar', () => {
   })
 })
 
-describe('Example 3 - maximalMunchGrammar', () => {
+describe('maximalMunchGrammar [Example 3]', () => {
   describe('return value', () => {
     it(`'3.14 5' should return ${ex3ResultString}`, () => {
       const float = new TokenType('FLOAT', /^[0-9]+\.[0-9]+/)
