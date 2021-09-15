@@ -6,6 +6,7 @@ export class Tokenizer {
     this.string = string
     this.tokens = []
     this.endToken = new Token('END', null)
+    this.activeTokenIndex = 0
   }
 
   tokenize () {
@@ -65,5 +66,19 @@ export class Tokenizer {
 
   addTokenToCollection (token) {
     this.tokens.push(token)
+  }
+
+  getActiveToken () {
+    return this.tokens[this.activeTokenIndex]
+  }
+
+  moveNext () {
+    // Will require more complex routing
+    this.activeTokenIndex++
+  }
+
+  moveBack () {
+    // Will require more complex routing
+    this.activeTokenIndex--
   }
 }
