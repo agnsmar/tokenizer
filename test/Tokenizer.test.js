@@ -168,12 +168,61 @@ describe('arithmeticGrammar [Example 2]', () => {
       arithmeticTokenizer.moveNext(3)
       expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'ADD', value: '+' })
     })
+
+    it('[TC17]: \'(15+3) * 10\' [] should return OPENPAR(\'(\')', () => {
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '(15+3) * 10')
+
+      arithmeticTokenizer.tokenize()
+
+      expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'OPENPAR', value: '(' })
+    })
+
+    it('[TC18]: \'(5 + 3+1) / 13 + 10\' [>>>>>>] should return CLOSEPAR(\')\')', () => {
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '(5 + 3+1) / 13 + 10')
+
+      arithmeticTokenizer.tokenize()
+      arithmeticTokenizer.moveNext(6)
+      expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'CLOSEPAR', value: ')' })
+    })
+
+    it('[TC19]: \'(1 + 4) / (13 * 10)\' [>>>>>><] should return DIV(\'/\')', () => {
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '(1 + 4) / (13 * 10)')
+
+      arithmeticTokenizer.tokenize()
+      arithmeticTokenizer.moveNext(6)
+      arithmeticTokenizer.moveBack()
+      expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'DIV', value: '/' })
+    })
+
+    it('[TC20]: \'3- 14\' [>] should return SUB(\'-\')', () => {
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3- 14')
+
+      arithmeticTokenizer.tokenize()
+      arithmeticTokenizer.moveNext()
+      expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'SUB', value: '-' })
+    })
+
+    it('[TC21]: \'(1 - 1) * 13\' [>>>>] should return CLOSEPAR(\')\')', () => {
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '(1 - 1) * 13')
+
+      arithmeticTokenizer.tokenize()
+      arithmeticTokenizer.moveNext(4)
+      expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'CLOSEPAR', value: ')' })
+    })
+
+    it('[TC22]: \'80 / 13\' [>] should return DIV(\'/\')', () => {
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '80 / 13')
+
+      arithmeticTokenizer.tokenize()
+      arithmeticTokenizer.moveNext()
+      expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'DIV', value: '/' })
+    })
   })
 })
 
 describe('maximalMunchGrammar [Example 3]', () => {
   describe('return value', () => {
-    it('[TC17]: \'3.14\' [] should return FLOAT(\'3.14\')', () => {
+    it('[TC23]: \'3.14\' [] should return FLOAT(\'3.14\')', () => {
       const maximalMunchTokenizer = new Tokenizer(maximalMunchGrammar, '3.14 5')
 
       maximalMunchTokenizer.tokenize()
