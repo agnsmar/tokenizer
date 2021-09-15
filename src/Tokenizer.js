@@ -40,12 +40,14 @@ export class Tokenizer {
           this.string = this.string.replace(tokenWithMostMatchedCharacters.value, '')
         }
         if (matchedTokens.length === 0) {
-          throw new Error(`No lexical element matches ${this.string}`)
+          const exceptionToken = new Token('Exception', `No lexical element matches '${this.string}'`)
+          this.addTokenToCollection(exceptionToken)
+          throw new Error(`No lexical element matches '${this.string}'`)
         }
       }
       this.addTokenToCollection(this.endToken)
     } catch (error) {
-      console.log(error.message)
+
     }
   }
 
