@@ -88,6 +88,148 @@ describe('wordAndDotGrammar [Example 1]', () => {
       textTokenizer.tokenize()
       expect(textTokenizer.getTokens()).to.eql(ex1Result)
     })
+
+    it('[TC1]: \'a\' [] should return WORD(\'a\')', () => {
+      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+      const dot = new TokenType('DOT', /^\./)
+      const wordAndDotGrammar = new Grammar()
+      wordAndDotGrammar.addTokenType(word)
+      wordAndDotGrammar.addTokenType(dot)
+
+      const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a')
+      textTokenizer.tokenize()
+      expect(textTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'a' })
+    })
+
+    it('[TC2]: \'a aa\' [>] should return WORD(\'aa\')', () => {
+      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+      const dot = new TokenType('DOT', /^\./)
+      const wordAndDotGrammar = new Grammar()
+      wordAndDotGrammar.addTokenType(word)
+      wordAndDotGrammar.addTokenType(dot)
+
+      const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a aa')
+      textTokenizer.tokenize()
+      textTokenizer.moveNext()
+      expect(textTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'aa' })
+    })
+
+    it('[TC3]: \'a.b\' [>] should return DOT(\'.\')', () => {
+      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+      const dot = new TokenType('DOT', /^\./)
+      const wordAndDotGrammar = new Grammar()
+      wordAndDotGrammar.addTokenType(word)
+      wordAndDotGrammar.addTokenType(dot)
+
+      const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a.b')
+      textTokenizer.tokenize()
+      textTokenizer.moveNext()
+      expect(textTokenizer.getActiveToken()).to.eql({ type: 'DOT', value: '.' })
+    })
+
+    it('[TC4]: \'a.b\' [>>] should return WORD(\'b\')', () => {
+      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+      const dot = new TokenType('DOT', /^\./)
+      const wordAndDotGrammar = new Grammar()
+      wordAndDotGrammar.addTokenType(word)
+      wordAndDotGrammar.addTokenType(dot)
+
+      const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a.b')
+      textTokenizer.tokenize()
+      textTokenizer.moveNext(2)
+      expect(textTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'b' })
+    })
+
+    it('[TC5]: \'aa. b\' [>>] should return WORD(\'b\')', () => {
+      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+      const dot = new TokenType('DOT', /^\./)
+      const wordAndDotGrammar = new Grammar()
+      wordAndDotGrammar.addTokenType(word)
+      wordAndDotGrammar.addTokenType(dot)
+
+      const textTokenizer = new Tokenizer(wordAndDotGrammar, 'aa.b')
+      textTokenizer.tokenize()
+      textTokenizer.moveNext(2)
+      expect(textTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'b' })
+    })
+
+    it('[TC6]: \'a .b\' [>><] should return DOT(\'.\')', () => {
+      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+      const dot = new TokenType('DOT', /^\./)
+      const wordAndDotGrammar = new Grammar()
+      wordAndDotGrammar.addTokenType(word)
+      wordAndDotGrammar.addTokenType(dot)
+
+      const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a .b')
+      textTokenizer.tokenize()
+      textTokenizer.moveNext(2)
+      textTokenizer.moveBack()
+      expect(textTokenizer.getActiveToken()).to.eql({ type: 'DOT', value: '.' })
+    })
+
+    it('[TC7]: \'\' [] should return END(\'null\')', () => {
+      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+      const dot = new TokenType('DOT', /^\./)
+      const wordAndDotGrammar = new Grammar()
+      wordAndDotGrammar.addTokenType(word)
+      wordAndDotGrammar.addTokenType(dot)
+
+      const textTokenizer = new Tokenizer(wordAndDotGrammar, '')
+      textTokenizer.tokenize()
+
+      expect(textTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
+    })
+
+    it('[TC8]: \' \' [] should return END(\'null\')', () => {
+      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+      const dot = new TokenType('DOT', /^\./)
+      const wordAndDotGrammar = new Grammar()
+      wordAndDotGrammar.addTokenType(word)
+      wordAndDotGrammar.addTokenType(dot)
+
+      const textTokenizer = new Tokenizer(wordAndDotGrammar, ' ')
+      textTokenizer.tokenize()
+
+      expect(textTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
+    })
+
+    it('[TC9]: \'a\' [>] should return END(\'null\')', () => {
+      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+      const dot = new TokenType('DOT', /^\./)
+      const wordAndDotGrammar = new Grammar()
+      wordAndDotGrammar.addTokenType(word)
+      wordAndDotGrammar.addTokenType(dot)
+
+      const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a')
+      textTokenizer.tokenize()
+      textTokenizer.moveNext()
+      expect(textTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
+    })
+
+    it('[TC10]: \'a\' [>] should return END(\'null\')', () => {
+      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+      const dot = new TokenType('DOT', /^\./)
+      const wordAndDotGrammar = new Grammar()
+      wordAndDotGrammar.addTokenType(word)
+      wordAndDotGrammar.addTokenType(dot)
+
+      const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a')
+      textTokenizer.tokenize()
+      textTokenizer.moveBack()
+      expect(textTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
+    })
+
+    it('[TC11]: \'!\' [] should return Exception', () => {
+      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+      const dot = new TokenType('DOT', /^\./)
+      const wordAndDotGrammar = new Grammar()
+      wordAndDotGrammar.addTokenType(word)
+      wordAndDotGrammar.addTokenType(dot)
+
+      const textTokenizer = new Tokenizer(wordAndDotGrammar, '!')
+      textTokenizer.tokenize()
+      expect(textTokenizer.getActiveToken()).to.eql('Exception')
+    })
   })
 })
 
