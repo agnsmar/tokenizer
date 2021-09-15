@@ -215,7 +215,7 @@ describe('wordAndDotGrammar [Example 1]', () => {
 
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a')
       textTokenizer.tokenize()
-      textTokenizer.moveBack()
+      textTokenizer.moveNext()
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
     })
 
