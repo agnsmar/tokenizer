@@ -72,13 +72,17 @@ export class Tokenizer {
     return this.tokens[this.activeTokenIndex]
   }
 
-  moveNext () {
+  moveNext (steps = 1) {
     // Will require more complex routing
-    this.activeTokenIndex++
+    for (let step = 0; step < steps; step++) {
+      this.activeTokenIndex++
+    }
   }
 
-  moveBack () {
+  moveBack (steps = 1) {
     // Will require more complex routing
-    this.activeTokenIndex--
+    for (let step = 0; step < steps; step++) {
+      this.activeTokenIndex--
+    }
   }
 }
