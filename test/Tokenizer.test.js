@@ -162,3 +162,15 @@ describe('arithmeticGrammar [Example 2]', () => {
     })
   })
 })
+
+describe('maximalMunchGrammar [Example 3]', () => {
+  describe('return value', () => {
+    it('[TC17]: \'3.14\' [] should return FLOAT(\'3.14\')', () => {
+      const maximalMunchTokenizer = new Tokenizer(maximalMunchGrammar, '3.14 5')
+
+      maximalMunchTokenizer.tokenize()
+
+      expect(maximalMunchTokenizer.getActiveToken()).to.eql({ type: 'FLOAT', value: '3.14' })
+    })
+  })
+})
