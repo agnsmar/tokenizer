@@ -75,39 +75,37 @@ const ex3ResultString = ex3Result.map((token) => {
   return `\n\t${token.type}('${token.value}')`
 })
 
+// Word and Dot grammar.
+const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+const dot = new TokenType('DOT', /^\./)
+const wordAndDotGrammar = new Grammar()
+wordAndDotGrammar.addTokenType(word)
+wordAndDotGrammar.addTokenType(dot)
+
+// Arithmetic Grammar.
+const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
+const add = new TokenType('ADD', /^[+]/)
+const mul = new TokenType('MUL', /^[*]/)
+const arithmeticGrammar = new Grammar()
+arithmeticGrammar.addTokenType(number)
+arithmeticGrammar.addTokenType(add)
+arithmeticGrammar.addTokenType(mul)
+
 describe('wordAndDotGrammar [Example 1]', () => {
   describe('return value', () => {
     it(`'Meningen består av ord' should return ${ex1ResultString}`, () => {
-      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('DOT', /^\./)
-      const wordAndDotGrammar = new Grammar()
-      wordAndDotGrammar.addTokenType(word)
-      wordAndDotGrammar.addTokenType(dot)
-
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'Meningen består av ord.')
       textTokenizer.tokenize()
       expect(textTokenizer.getTokens()).to.eql(ex1Result)
     })
 
     it('[TC1]: \'a\' [] should return WORD(\'a\')', () => {
-      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('DOT', /^\./)
-      const wordAndDotGrammar = new Grammar()
-      wordAndDotGrammar.addTokenType(word)
-      wordAndDotGrammar.addTokenType(dot)
-
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a')
       textTokenizer.tokenize()
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'a' })
     })
 
     it('[TC2]: \'a aa\' [>] should return WORD(\'aa\')', () => {
-      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('DOT', /^\./)
-      const wordAndDotGrammar = new Grammar()
-      wordAndDotGrammar.addTokenType(word)
-      wordAndDotGrammar.addTokenType(dot)
-
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a aa')
       textTokenizer.tokenize()
       textTokenizer.moveNext()
@@ -115,12 +113,6 @@ describe('wordAndDotGrammar [Example 1]', () => {
     })
 
     it('[TC3]: \'a.b\' [>] should return DOT(\'.\')', () => {
-      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('DOT', /^\./)
-      const wordAndDotGrammar = new Grammar()
-      wordAndDotGrammar.addTokenType(word)
-      wordAndDotGrammar.addTokenType(dot)
-
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a.b')
       textTokenizer.tokenize()
       textTokenizer.moveNext()
@@ -128,12 +120,6 @@ describe('wordAndDotGrammar [Example 1]', () => {
     })
 
     it('[TC4]: \'a.b\' [>>] should return WORD(\'b\')', () => {
-      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('DOT', /^\./)
-      const wordAndDotGrammar = new Grammar()
-      wordAndDotGrammar.addTokenType(word)
-      wordAndDotGrammar.addTokenType(dot)
-
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a.b')
       textTokenizer.tokenize()
       textTokenizer.moveNext(2)
@@ -141,12 +127,6 @@ describe('wordAndDotGrammar [Example 1]', () => {
     })
 
     it('[TC5]: \'aa. b\' [>>] should return WORD(\'b\')', () => {
-      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('DOT', /^\./)
-      const wordAndDotGrammar = new Grammar()
-      wordAndDotGrammar.addTokenType(word)
-      wordAndDotGrammar.addTokenType(dot)
-
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'aa.b')
       textTokenizer.tokenize()
       textTokenizer.moveNext(2)
@@ -154,12 +134,6 @@ describe('wordAndDotGrammar [Example 1]', () => {
     })
 
     it('[TC6]: \'a .b\' [>><] should return DOT(\'.\')', () => {
-      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('DOT', /^\./)
-      const wordAndDotGrammar = new Grammar()
-      wordAndDotGrammar.addTokenType(word)
-      wordAndDotGrammar.addTokenType(dot)
-
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a .b')
       textTokenizer.tokenize()
       textTokenizer.moveNext(2)
@@ -168,12 +142,6 @@ describe('wordAndDotGrammar [Example 1]', () => {
     })
 
     it('[TC7]: \'\' [] should return END(\'null\')', () => {
-      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('DOT', /^\./)
-      const wordAndDotGrammar = new Grammar()
-      wordAndDotGrammar.addTokenType(word)
-      wordAndDotGrammar.addTokenType(dot)
-
       const textTokenizer = new Tokenizer(wordAndDotGrammar, '')
       textTokenizer.tokenize()
 
@@ -181,12 +149,6 @@ describe('wordAndDotGrammar [Example 1]', () => {
     })
 
     it('[TC8]: \' \' [] should return END(\'null\')', () => {
-      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('DOT', /^\./)
-      const wordAndDotGrammar = new Grammar()
-      wordAndDotGrammar.addTokenType(word)
-      wordAndDotGrammar.addTokenType(dot)
-
       const textTokenizer = new Tokenizer(wordAndDotGrammar, ' ')
       textTokenizer.tokenize()
 
@@ -194,12 +156,6 @@ describe('wordAndDotGrammar [Example 1]', () => {
     })
 
     it('[TC9]: \'a\' [>] should return END(\'null\')', () => {
-      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('DOT', /^\./)
-      const wordAndDotGrammar = new Grammar()
-      wordAndDotGrammar.addTokenType(word)
-      wordAndDotGrammar.addTokenType(dot)
-
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a')
       textTokenizer.tokenize()
       textTokenizer.moveNext()
@@ -207,12 +163,6 @@ describe('wordAndDotGrammar [Example 1]', () => {
     })
 
     it('[TC10]: \'a\' [>] should return END(\'null\')', () => {
-      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('DOT', /^\./)
-      const wordAndDotGrammar = new Grammar()
-      wordAndDotGrammar.addTokenType(word)
-      wordAndDotGrammar.addTokenType(dot)
-
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a')
       textTokenizer.tokenize()
       textTokenizer.moveNext()
@@ -220,12 +170,6 @@ describe('wordAndDotGrammar [Example 1]', () => {
     })
 
     it('[TC11]: \'!\' [] should return Exception', () => {
-      const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
-      const dot = new TokenType('DOT', /^\./)
-      const wordAndDotGrammar = new Grammar()
-      wordAndDotGrammar.addTokenType(word)
-      wordAndDotGrammar.addTokenType(dot)
-
       const textTokenizer = new Tokenizer(wordAndDotGrammar, '!')
       textTokenizer.tokenize()
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'Exception', value: 'No lexical element matches \'!\'' })
@@ -236,14 +180,6 @@ describe('wordAndDotGrammar [Example 1]', () => {
 describe('arithmeticGrammar [Example 2]', () => {
   describe('return value', () => {
     it(`'3 + 2' should return ${ex2ResultString}`, () => {
-      const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
-      const add = new TokenType('ADD', /^[+]/)
-      const mul = new TokenType('MUL', /^[*]/)
-      const arithmeticGrammar = new Grammar()
-      arithmeticGrammar.addTokenType(number)
-      arithmeticGrammar.addTokenType(add)
-      arithmeticGrammar.addTokenType(mul)
-
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3 + 2')
 
       arithmeticTokenizer.tokenize()
@@ -252,14 +188,6 @@ describe('arithmeticGrammar [Example 2]', () => {
     })
 
     it('[TC12]: \'3\' [] should return NUMBER(\'3\')', () => {
-      const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
-      const add = new TokenType('ADD', /^[+]/)
-      const mul = new TokenType('MUL', /^[*]/)
-      const arithmeticGrammar = new Grammar()
-      arithmeticGrammar.addTokenType(number)
-      arithmeticGrammar.addTokenType(add)
-      arithmeticGrammar.addTokenType(mul)
-
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3')
 
       arithmeticTokenizer.tokenize()
@@ -268,14 +196,6 @@ describe('arithmeticGrammar [Example 2]', () => {
     })
 
     it('[TC13]: \'3.14\' [] should return NUMBER(\'3.14\')', () => {
-      const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
-      const add = new TokenType('ADD', /^[+]/)
-      const mul = new TokenType('MUL', /^[*]/)
-      const arithmeticGrammar = new Grammar()
-      arithmeticGrammar.addTokenType(number)
-      arithmeticGrammar.addTokenType(add)
-      arithmeticGrammar.addTokenType(mul)
-
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3.14')
 
       arithmeticTokenizer.tokenize()
@@ -284,14 +204,6 @@ describe('arithmeticGrammar [Example 2]', () => {
     })
 
     it('[TC14]: \'3 + 54 * 4\' [>>>] should return MUL(\'*\')', () => {
-      const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
-      const add = new TokenType('ADD', /^[+]/)
-      const mul = new TokenType('MUL', /^[*]/)
-      const arithmeticGrammar = new Grammar()
-      arithmeticGrammar.addTokenType(number)
-      arithmeticGrammar.addTokenType(add)
-      arithmeticGrammar.addTokenType(mul)
-
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3 + 54 * 4')
 
       arithmeticTokenizer.tokenize()
@@ -301,14 +213,6 @@ describe('arithmeticGrammar [Example 2]', () => {
     })
 
     it('[TC15]: \'3+5 # 4\' [>>>] should return Exception', () => {
-      const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
-      const add = new TokenType('ADD', /^[+]/)
-      const mul = new TokenType('MUL', /^[*]/)
-      const arithmeticGrammar = new Grammar()
-      arithmeticGrammar.addTokenType(number)
-      arithmeticGrammar.addTokenType(add)
-      arithmeticGrammar.addTokenType(mul)
-
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3+5 # 4')
 
       arithmeticTokenizer.tokenize()
@@ -318,14 +222,6 @@ describe('arithmeticGrammar [Example 2]', () => {
     })
 
     it('[TC16]: \'3.0+54.1     + 4.2\' [><>>>] should return ADD(\'+\')', () => {
-      const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
-      const add = new TokenType('ADD', /^[+]/)
-      const mul = new TokenType('MUL', /^[*]/)
-      const arithmeticGrammar = new Grammar()
-      arithmeticGrammar.addTokenType(number)
-      arithmeticGrammar.addTokenType(add)
-      arithmeticGrammar.addTokenType(mul)
-
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3.0+54.1     + 4.2')
 
       arithmeticTokenizer.tokenize()
