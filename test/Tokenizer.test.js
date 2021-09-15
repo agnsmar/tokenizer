@@ -8,72 +8,6 @@ import { Tokenizer } from '../src/Tokenizer.js'
 import { TokenType } from '../src/TokenType.js'
 
 const expect = chai.expect
-const ex1Result = [
-  {
-    type: 'WORD',
-    value: 'Meningen'
-  },
-  {
-    type: 'WORD',
-    value: 'består'
-  },
-  {
-    type: 'WORD',
-    value: 'av'
-  },
-  {
-    type: 'WORD',
-    value: 'ord'
-  },
-  {
-    type: 'DOT',
-    value: '.'
-  },
-  {
-    type: 'END',
-    value: null
-  }]
-const ex1ResultString = ex1Result.map((token) => {
-  return `\n\t${token.type}('${token.value}')`
-})
-
-const ex2Result = [
-  {
-    type: 'NUMBER',
-    value: '3'
-  },
-  {
-    type: 'ADD',
-    value: '+'
-  },
-  {
-    type: 'NUMBER',
-    value: '2'
-  },
-  {
-    type: 'END',
-    value: null
-  }]
-const ex2ResultString = ex2Result.map((token) => {
-  return `\n\t${token.type}('${token.value}')`
-})
-
-const ex3Result = [
-  {
-    type: 'FLOAT',
-    value: '3.14'
-  },
-  {
-    type: 'INTEGER',
-    value: '5'
-  },
-  {
-    type: 'END',
-    value: null
-  }]
-const ex3ResultString = ex3Result.map((token) => {
-  return `\n\t${token.type}('${token.value}')`
-})
 
 // Word and Dot grammar.
 const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
@@ -91,14 +25,17 @@ arithmeticGrammar.addTokenType(number)
 arithmeticGrammar.addTokenType(add)
 arithmeticGrammar.addTokenType(mul)
 
+// Maximal Munch Grammar.
+const float = new TokenType('FLOAT', /^[0-9]+\.[0-9]+/)
+const integer = new TokenType('INTEGER', /^[0-9]+/)
+
+const maximalMunchGrammar = new Grammar()
+
+maximalMunchGrammar.addTokenType(float)
+maximalMunchGrammar.addTokenType(integer)
+
 describe('wordAndDotGrammar [Example 1]', () => {
   describe('return value', () => {
-    it(`'Meningen består av ord' should return ${ex1ResultString}`, () => {
-      const textTokenizer = new Tokenizer(wordAndDotGrammar, 'Meningen består av ord.')
-      textTokenizer.tokenize()
-      expect(textTokenizer.getTokens()).to.eql(ex1Result)
-    })
-
     it('[TC1]: \'a\' [] should return WORD(\'a\')', () => {
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a')
       textTokenizer.tokenize()
@@ -179,14 +116,6 @@ describe('wordAndDotGrammar [Example 1]', () => {
 
 describe('arithmeticGrammar [Example 2]', () => {
   describe('return value', () => {
-    it(`'3 + 2' should return ${ex2ResultString}`, () => {
-      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3 + 2')
-
-      arithmeticTokenizer.tokenize()
-
-      expect(arithmeticTokenizer.getTokens()).to.eql(ex2Result)
-    })
-
     it('[TC12]: \'3\' [] should return NUMBER(\'3\')', () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3')
 
@@ -230,26 +159,6 @@ describe('arithmeticGrammar [Example 2]', () => {
       arithmeticTokenizer.moveBack()
       arithmeticTokenizer.moveNext(3)
       expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'ADD', value: '+' })
-    })
-  })
-})
-
-describe('maximalMunchGrammar [Example 3]', () => {
-  describe('return value', () => {
-    it(`'3.14 5' should return ${ex3ResultString}`, () => {
-      const float = new TokenType('FLOAT', /^[0-9]+\.[0-9]+/)
-      const integer = new TokenType('INTEGER', /^[0-9]+/)
-
-      const maximalMunchGrammar = new Grammar()
-
-      maximalMunchGrammar.addTokenType(float)
-      maximalMunchGrammar.addTokenType(integer)
-
-      const maximalMunchTokenizer = new Tokenizer(maximalMunchGrammar, '3.14 5')
-
-      maximalMunchTokenizer.tokenize()
-      maximalMunchTokenizer.getTokens()
-      expect(maximalMunchTokenizer.getTokens()).to.eql(ex3Result)
     })
   })
 })
