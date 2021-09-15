@@ -228,7 +228,7 @@ describe('wordAndDotGrammar [Example 1]', () => {
 
       const textTokenizer = new Tokenizer(wordAndDotGrammar, '!')
       textTokenizer.tokenize()
-      expect(textTokenizer.getActiveToken()).to.eql('Exception')
+      expect(textTokenizer.getActiveToken()).to.eql({ type: 'Exception', value: 'No lexical element matches \'!\'' })
     })
   })
 })
@@ -314,7 +314,7 @@ describe('arithmeticGrammar [Example 2]', () => {
       arithmeticTokenizer.tokenize()
 
       arithmeticTokenizer.moveNext(3)
-      expect(arithmeticTokenizer.getActiveToken()).to.eql('Exception')
+      expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'Exception', value: 'No lexical element matches \'# 4\'' })
     })
 
     it('[TC16]: \'3.0+54.1     + 4.2\' [><>>>] should return ADD(\'+\')', () => {
