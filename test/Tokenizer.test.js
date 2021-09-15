@@ -250,6 +250,91 @@ describe('arithmeticGrammar [Example 2]', () => {
 
       expect(arithmeticTokenizer.getTokens()).to.eql(ex2Result)
     })
+
+    it('[TC12]: \'3\' [] should return NUMBER(\'3\')', () => {
+      const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
+      const add = new TokenType('ADD', /^[+]/)
+      const mul = new TokenType('MUL', /^[*]/)
+      const arithmeticGrammar = new Grammar()
+      arithmeticGrammar.addTokenType(number)
+      arithmeticGrammar.addTokenType(add)
+      arithmeticGrammar.addTokenType(mul)
+
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3')
+
+      arithmeticTokenizer.tokenize()
+
+      expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'NUMBER', value: '3' })
+    })
+
+    it('[TC13]: \'3.14\' [] should return NUMBER(\'3.14\')', () => {
+      const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
+      const add = new TokenType('ADD', /^[+]/)
+      const mul = new TokenType('MUL', /^[*]/)
+      const arithmeticGrammar = new Grammar()
+      arithmeticGrammar.addTokenType(number)
+      arithmeticGrammar.addTokenType(add)
+      arithmeticGrammar.addTokenType(mul)
+
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3.14')
+
+      arithmeticTokenizer.tokenize()
+
+      expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'NUMBER', value: '3.14' })
+    })
+
+    it('[TC14]: \'3 + 54 * 4\' [>>>] should return MUL(\'*\')', () => {
+      const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
+      const add = new TokenType('ADD', /^[+]/)
+      const mul = new TokenType('MUL', /^[*]/)
+      const arithmeticGrammar = new Grammar()
+      arithmeticGrammar.addTokenType(number)
+      arithmeticGrammar.addTokenType(add)
+      arithmeticGrammar.addTokenType(mul)
+
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3 + 54 * 4')
+
+      arithmeticTokenizer.tokenize()
+
+      arithmeticTokenizer.moveNext(3)
+      expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'MUL', value: '*' })
+    })
+
+    it('[TC15]: \'3+5 # 4\' [>>>] should return Exception', () => {
+      const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
+      const add = new TokenType('ADD', /^[+]/)
+      const mul = new TokenType('MUL', /^[*]/)
+      const arithmeticGrammar = new Grammar()
+      arithmeticGrammar.addTokenType(number)
+      arithmeticGrammar.addTokenType(add)
+      arithmeticGrammar.addTokenType(mul)
+
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3+5 # 4')
+
+      arithmeticTokenizer.tokenize()
+
+      arithmeticTokenizer.moveNext(3)
+      expect(arithmeticTokenizer.getActiveToken()).to.eql('Exception')
+    })
+
+    it('[TC16]: \'3.0+54.1     + 4.2\' [><>>>] should return ADD(\'+\')', () => {
+      const number = new TokenType('NUMBER', /^[0-9]+(\.([0-9])+)?/)
+      const add = new TokenType('ADD', /^[+]/)
+      const mul = new TokenType('MUL', /^[*]/)
+      const arithmeticGrammar = new Grammar()
+      arithmeticGrammar.addTokenType(number)
+      arithmeticGrammar.addTokenType(add)
+      arithmeticGrammar.addTokenType(mul)
+
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3.0+54.1     + 4.2')
+
+      arithmeticTokenizer.tokenize()
+
+      arithmeticTokenizer.moveNext()
+      arithmeticTokenizer.moveBack()
+      arithmeticTokenizer.moveNext(3)
+      expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'ADD', value: '+' })
+    })
   })
 })
 
