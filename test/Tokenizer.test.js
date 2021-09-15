@@ -46,41 +46,35 @@ describe('wordAndDotGrammar [Example 1]', () => {
   describe('return value', () => {
     it('[TC1]: \'a\' [] should return WORD(\'a\')', () => {
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a')
-      textTokenizer.tokenize()
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'a' })
     })
 
     it('[TC2]: \'a aa\' [>] should return WORD(\'aa\')', () => {
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a aa')
-      textTokenizer.tokenize()
       textTokenizer.moveNext()
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'aa' })
     })
 
     it('[TC3]: \'a.b\' [>] should return DOT(\'.\')', () => {
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a.b')
-      textTokenizer.tokenize()
       textTokenizer.moveNext()
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'DOT', value: '.' })
     })
 
     it('[TC4]: \'a.b\' [>>] should return WORD(\'b\')', () => {
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a.b')
-      textTokenizer.tokenize()
       textTokenizer.moveNext(2)
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'b' })
     })
 
     it('[TC5]: \'aa. b\' [>>] should return WORD(\'b\')', () => {
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'aa.b')
-      textTokenizer.tokenize()
       textTokenizer.moveNext(2)
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'b' })
     })
 
     it('[TC6]: \'a .b\' [>><] should return DOT(\'.\')', () => {
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a .b')
-      textTokenizer.tokenize()
       textTokenizer.moveNext(2)
       textTokenizer.moveBack()
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'DOT', value: '.' })
@@ -88,35 +82,30 @@ describe('wordAndDotGrammar [Example 1]', () => {
 
     it('[TC7]: \'\' [] should return END(\'null\')', () => {
       const textTokenizer = new Tokenizer(wordAndDotGrammar, '')
-      textTokenizer.tokenize()
 
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
     })
 
     it('[TC8]: \' \' [] should return END(\'null\')', () => {
       const textTokenizer = new Tokenizer(wordAndDotGrammar, ' ')
-      textTokenizer.tokenize()
 
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
     })
 
     it('[TC9]: \'a\' [>] should return END(\'null\')', () => {
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a')
-      textTokenizer.tokenize()
       textTokenizer.moveNext()
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
     })
 
     it('[TC10]: \'a\' [>] should return END(\'null\')', () => {
       const textTokenizer = new Tokenizer(wordAndDotGrammar, 'a')
-      textTokenizer.tokenize()
       textTokenizer.moveNext()
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
     })
 
     it('[TC11]: \'!\' [] should return Exception(\'No lexical element matches \'!\'\')', () => {
       const textTokenizer = new Tokenizer(wordAndDotGrammar, '!')
-      textTokenizer.tokenize()
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'Exception', value: 'No lexical element matches \'!\'' })
     })
   })
@@ -127,23 +116,17 @@ describe('arithmeticGrammar [Example 2]', () => {
     it('[TC12]: \'3\' [] should return NUMBER(\'3\')', () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3')
 
-      arithmeticTokenizer.tokenize()
-
       expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'NUMBER', value: '3' })
     })
 
     it('[TC13]: \'3.14\' [] should return NUMBER(\'3.14\')', () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3.14')
 
-      arithmeticTokenizer.tokenize()
-
       expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'NUMBER', value: '3.14' })
     })
 
     it('[TC14]: \'3 + 54 * 4\' [>>>] should return MUL(\'*\')', () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3 + 54 * 4')
-
-      arithmeticTokenizer.tokenize()
 
       arithmeticTokenizer.moveNext(3)
       expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'MUL', value: '*' })
@@ -152,16 +135,12 @@ describe('arithmeticGrammar [Example 2]', () => {
     it('[TC15]: \'3+5 # 4\' [>>>] should return Exception(\'No lexical element matches \'# 4\'\')', () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3+5 # 4')
 
-      arithmeticTokenizer.tokenize()
-
       arithmeticTokenizer.moveNext(3)
       expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'Exception', value: 'No lexical element matches \'# 4\'' })
     })
 
     it('[TC16]: \'3.0+54.1     + 4.2\' [><>>>] should return ADD(\'+\')', () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3.0+54.1     + 4.2')
-
-      arithmeticTokenizer.tokenize()
 
       arithmeticTokenizer.moveNext()
       arithmeticTokenizer.moveBack()
@@ -172,15 +151,12 @@ describe('arithmeticGrammar [Example 2]', () => {
     it('[TC17]: \'(15+3) * 10\' [] should return OPENPAR(\'(\')', () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '(15+3) * 10')
 
-      arithmeticTokenizer.tokenize()
-
       expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'OPENPAR', value: '(' })
     })
 
     it('[TC18]: \'(5 + 3+1) / 13 + 10\' [>>>>>>] should return CLOSEPAR(\')\')', () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '(5 + 3+1) / 13 + 10')
 
-      arithmeticTokenizer.tokenize()
       arithmeticTokenizer.moveNext(6)
       expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'CLOSEPAR', value: ')' })
     })
@@ -188,7 +164,6 @@ describe('arithmeticGrammar [Example 2]', () => {
     it('[TC19]: \'(1 + 4) / (13 * 10)\' [>>>>>><] should return DIV(\'/\')', () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '(1 + 4) / (13 * 10)')
 
-      arithmeticTokenizer.tokenize()
       arithmeticTokenizer.moveNext(6)
       arithmeticTokenizer.moveBack()
       expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'DIV', value: '/' })
@@ -197,7 +172,6 @@ describe('arithmeticGrammar [Example 2]', () => {
     it('[TC20]: \'3- 14\' [>] should return SUB(\'-\')', () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3- 14')
 
-      arithmeticTokenizer.tokenize()
       arithmeticTokenizer.moveNext()
       expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'SUB', value: '-' })
     })
@@ -205,7 +179,6 @@ describe('arithmeticGrammar [Example 2]', () => {
     it('[TC21]: \'(1 - 1) * 13\' [>>>>] should return CLOSEPAR(\')\')', () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '(1 - 1) * 13')
 
-      arithmeticTokenizer.tokenize()
       arithmeticTokenizer.moveNext(4)
       expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'CLOSEPAR', value: ')' })
     })
@@ -213,7 +186,6 @@ describe('arithmeticGrammar [Example 2]', () => {
     it('[TC22]: \'80 / 13\' [>] should return DIV(\'/\')', () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '80 / 13')
 
-      arithmeticTokenizer.tokenize()
       arithmeticTokenizer.moveNext()
       expect(arithmeticTokenizer.getActiveToken()).to.eql({ type: 'DIV', value: '/' })
     })
@@ -224,8 +196,6 @@ describe('maximalMunchGrammar [Example 3]', () => {
   describe('return value', () => {
     it('[TC23]: \'3.14\' [] should return FLOAT(\'3.14\')', () => {
       const maximalMunchTokenizer = new Tokenizer(maximalMunchGrammar, '3.14 5')
-
-      maximalMunchTokenizer.tokenize()
 
       expect(maximalMunchTokenizer.getActiveToken()).to.eql({ type: 'FLOAT', value: '3.14' })
     })

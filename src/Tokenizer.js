@@ -7,9 +7,11 @@ export class Tokenizer {
     this.tokens = []
     this.endToken = new Token('END', null)
     this.activeTokenIndex = 0
+
+    this._tokenize()
   }
 
-  tokenize () {
+  _tokenize () {
     try {
       this.trimString()
       const types = this.grammar.getTokenTypes()
