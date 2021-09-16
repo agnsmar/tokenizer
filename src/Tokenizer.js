@@ -13,13 +13,13 @@ export class Tokenizer {
 
   _tokenize () {
     try {
-      this.trimString()
+      this._trimString()
       const types = this.grammar.getTokenTypes()
       while (this.string.length > 0) {
         const matchedTokens = []
         for (let i = 0; i < types.length; i++) {
           const type = types[i]
-          this.trimString()
+          this._trimString()
           const tokenValue = this.matchTokenToRegex(type.regex)
           if (tokenValue) {
             const token = new Token(type.name, tokenValue)
@@ -29,7 +29,7 @@ export class Tokenizer {
 
         if (matchedTokens.length === 1) {
           this.addTokenToCollection(matchedTokens[0])
-          this.string = this.string.replace(matchedTokens[0].value, '')
+          this._removeValueFromString(matchedTokens[0].value)
         } else if (matchedTokens.length > 1) {
           let tokenWithMostMatchedCharacters = matchedTokens[0]
           for (let i = 1; i < matchedTokens.length; i++) {
@@ -39,7 +39,7 @@ export class Tokenizer {
             }
           }
           this.addTokenToCollection(tokenWithMostMatchedCharacters)
-          this.string = this.string.replace(tokenWithMostMatchedCharacters.value, '')
+          this._removeValueFromString(tokenWithMostMatchedCharacters.value)
         }
         if (matchedTokens.length === 0) {
           const exceptionToken = new Token('Exception', `No lexical element matches '${this.string}'`)
@@ -53,11 +53,15 @@ export class Tokenizer {
     }
   }
 
+  _removeValueFromString (tokenValueToRemove) {
+    this.string = this.string.replace(tokenValueToRemove, '')
+  }
+
   getTokens () {
     return this.tokens
   }
 
-  trimString () {
+  _trimString () {
     this.string = this.string.trim()
   }
 
