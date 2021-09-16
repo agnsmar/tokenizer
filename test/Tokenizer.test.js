@@ -201,3 +201,67 @@ describe('maximalMunchGrammar [Example 3]', () => {
     })
   })
 })
+
+describe('moveBack() and moveNext()', () => {
+  describe('return value', () => {
+    it('\'Hello everyone.\' [>>] should return DOT(\'.\')', () => {
+      const wordAndDotTokenizer = new Tokenizer(wordAndDotGrammar, 'Hello everyone.')
+
+      wordAndDotTokenizer.moveNext(2)
+      expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'DOT', value: '.' })
+    })
+
+    it('\'Hello everyone.\' [>>>] should return END(\'null\')', () => {
+      const wordAndDotTokenizer = new Tokenizer(wordAndDotGrammar, 'Hello everyone.')
+
+      wordAndDotTokenizer.moveNext(3)
+      expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
+    })
+
+    it('\'Hello everyone.\' [>>>>>] should return END(\'null\')', () => {
+      const wordAndDotTokenizer = new Tokenizer(wordAndDotGrammar, 'Hello everyone.')
+
+      wordAndDotTokenizer.moveNext(5)
+      expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
+    })
+
+    it('\'Hello everyone.\' [>>><<>>>>] should return END(\'null\')', () => {
+      const wordAndDotTokenizer = new Tokenizer(wordAndDotGrammar, 'Hello everyone.')
+
+      wordAndDotTokenizer.moveNext(3)
+      wordAndDotTokenizer.moveBack(2)
+      wordAndDotTokenizer.moveNext(4)
+      expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
+    })
+
+    it('\'Goodbye everybody.\' [<] should return WORD(\'Goodbye\')', () => {
+      const wordAndDotTokenizer = new Tokenizer(wordAndDotGrammar, 'Goodbye everybody.')
+
+      wordAndDotTokenizer.moveBack()
+      expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'Goodbye' })
+    })
+
+    it('\'Goodbye everybody.\' [<<<] should return WORD(\'Goodbye\')', () => {
+      const wordAndDotTokenizer = new Tokenizer(wordAndDotGrammar, 'Goodbye everybody.')
+
+      wordAndDotTokenizer.moveBack(3)
+      expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'Goodbye' })
+    })
+
+    it('\'Goodbye everybody.\' [>>><<<<] should return WORD(\'Goodbye\')', () => {
+      const wordAndDotTokenizer = new Tokenizer(wordAndDotGrammar, 'Goodbye everybody.')
+
+      wordAndDotTokenizer.moveNext(3)
+      wordAndDotTokenizer.moveBack(4)
+      expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'Goodbye' })
+    })
+
+    it('\'Hello again everybody.\' [<<<<>] should return WORD(\'again\')', () => {
+      const wordAndDotTokenizer = new Tokenizer(wordAndDotGrammar, 'Hello again everybody.')
+
+      wordAndDotTokenizer.moveBack(3)
+      wordAndDotTokenizer.moveNext()
+      expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'again' })
+    })
+  })
+})
