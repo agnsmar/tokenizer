@@ -28,22 +28,12 @@ export class Tokenizer {
         }
 
         if (matchedTokens.length === 1) {
-          this.addTokenToCollection(matchedTokens[0])
-          this._removeValueFromString(matchedTokens[0].value)
+          this.thereIsOneMatchedToken(matchedTokens[0])
         } else if (matchedTokens.length > 1) {
-          let tokenWithMostMatchedCharacters = matchedTokens[0]
-          for (let i = 1; i < matchedTokens.length; i++) {
-            const currentToken = matchedTokens[i]
-            if (currentToken.hasMoreMatchedCharactersThan(tokenWithMostMatchedCharacters)) {
-              tokenWithMostMatchedCharacters = currentToken
-            }
-          }
-          this.addTokenToCollection(tokenWithMostMatchedCharacters)
-          this._removeValueFromString(tokenWithMostMatchedCharacters.value)
+          this.thereAreManyMatchedTokens(matchedTokens)
         }
         if (matchedTokens.length === 0) {
-          const exceptionToken = new Token('Exception', `No lexical element matches '${this.string}'`)
-          this.addTokenToCollection(exceptionToken)
+          this.thereAreNoMatchedTokens()
           throw new Error(`No lexical element matches '${this.string}'`)
         }
       }
@@ -51,6 +41,28 @@ export class Tokenizer {
     } catch (error) {
 
     }
+  }
+
+  thereIsOneMatchedToken (token) {
+    this.addTokenToCollection(token)
+    this._removeValueFromString(token.value)
+  }
+
+  thereAreManyMatchedTokens (tokens) {
+    let tokenWithMostMatchedCharacters = tokens[0]
+    for (let i = 1; i < tokens.length; i++) {
+      const currentToken = tokens[i]
+      if (currentToken.hasMoreMatchedCharactersThan(tokenWithMostMatchedCharacters)) {
+        tokenWithMostMatchedCharacters = currentToken
+      }
+    }
+    this.addTokenToCollection(tokenWithMostMatchedCharacters)
+    this._removeValueFromString(tokenWithMostMatchedCharacters.value)
+  }
+
+  thereAreNoMatchedTokens () {
+    const exceptionToken = new Token('Exception', `No lexical element matches '${this.string}'`)
+    this.addTokenToCollection(exceptionToken)
   }
 
   _removeValueFromString (tokenValueToRemove) {
