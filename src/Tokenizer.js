@@ -56,12 +56,13 @@ export class Tokenizer {
 
   thereAreManyMatchedTokens (tokens) {
     let tokenWithMostMatchedCharacters = tokens[0]
-    for (let i = 1; i < tokens.length; i++) {
-      const currentToken = tokens[i]
-      if (currentToken.hasMoreMatchedCharactersThan(tokenWithMostMatchedCharacters)) {
-        tokenWithMostMatchedCharacters = currentToken
+
+    tokens.forEach(token => {
+      if (token.hasMoreMatchedCharactersThan(tokenWithMostMatchedCharacters)) {
+        tokenWithMostMatchedCharacters = token
       }
-    }
+    })
+
     this.addTokenToCollection(tokenWithMostMatchedCharacters)
     this._removeValueFromString(tokenWithMostMatchedCharacters.value)
   }
