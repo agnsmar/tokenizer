@@ -8,12 +8,12 @@ export class Tokenizer {
     this.activeTokenIndex = 0
     this.endToken = new Token('END', null)
 
+    this._trimString()
     this._tokenize()
   }
 
   _tokenize () {
     try {
-      this._trimString()
       const types = this.grammar.getTokenTypes()
       while (this.string.length > 0) {
         const matchedTokens = this.matchStringToAllKnownTypes(types)
