@@ -5,8 +5,8 @@ export class Tokenizer {
     this.grammar = grammar
     this.string = string
     this.tokens = []
-    this.endToken = new Token('END', null)
     this.activeTokenIndex = 0
+    this.endToken = new Token('END', null)
 
     this._tokenize()
   }
@@ -16,31 +16,37 @@ export class Tokenizer {
       this._trimString()
       const types = this.grammar.getTokenTypes()
       while (this.string.length > 0) {
-        const matchedTokens = []
-        for (let i = 0; i < types.length; i++) {
-          const type = types[i]
-          this._trimString()
-          const tokenValue = this.matchTokenToRegex(type.regex)
-          if (tokenValue) {
-            const token = new Token(type.name, tokenValue)
-            matchedTokens.push(token)
-          }
-        }
+        const matchedTokens = this.matchStringToAllKnownTypes(types)
 
+        // Split this off.
         if (matchedTokens.length === 1) {
           this.thereIsOneMatchedToken(matchedTokens[0])
         } else if (matchedTokens.length > 1) {
           this.thereAreManyMatchedTokens(matchedTokens)
-        }
-        if (matchedTokens.length === 0) {
+        } else if (matchedTokens.length === 0) {
           this.thereAreNoMatchedTokens()
           throw new Error(`No lexical element matches '${this.string}'`)
         }
+
+        this._trimString()
       }
       this.addTokenToCollection(this.endToken)
     } catch (error) {
 
     }
+  }
+
+  matchStringToAllKnownTypes (types) {
+    const matchedTokens = []
+    types.forEach(type => {
+      const tokenValue = this.matchTokenToRegex(type.regex)
+      if (tokenValue) {
+        const token = new Token(type.name, tokenValue)
+        matchedTokens.push(token)
+      }
+    })
+
+    return matchedTokens
   }
 
   thereIsOneMatchedToken (token) {
