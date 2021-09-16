@@ -101,16 +101,18 @@ export class Tokenizer {
   }
 
   moveNext (steps = 1) {
-    // Will require more complex routing
     for (let step = 0; step < steps; step++) {
-      this.activeTokenIndex++
+      if (this.activeTokenIndex < this.tokens.length - 1) {
+        this.activeTokenIndex++
+      }
     }
   }
 
   moveBack (steps = 1) {
-    // Will require more complex routing
     for (let step = 0; step < steps; step++) {
-      this.activeTokenIndex--
+      if (this.activeTokenIndex > 0) {
+        this.activeTokenIndex--
+      }
     }
   }
 }
