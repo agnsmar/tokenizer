@@ -7,6 +7,7 @@ export class Tokenizer {
     this.tokens = []
     this.activeTokenIndex = 0
     this.endToken = new Token('END', null)
+    this.EXCEPTION_MESSAGE = 'No lexical element matches'
 
     this._trimString()
     this._tokenize()
@@ -30,7 +31,7 @@ export class Tokenizer {
   determineMatchedTokenCountAndAddLongestTokenToCollection (matchedTokens) {
     if (this.thereAreNoMatchedTokens(matchedTokens)) {
       this.createAndAddExceptionToken()
-      throw new Error(`No lexical element matches '${this.string}'`)
+      throw new Error(`${this.EXCEPTION_MESSAGE} '${this.string}'`)
     } else {
       this.addLongestTokenToCollection(matchedTokens)
     }
@@ -67,7 +68,7 @@ export class Tokenizer {
   }
 
   createAndAddExceptionToken () {
-    const exceptionToken = new Token('Exception', `No lexical element matches '${this.string}'`)
+    const exceptionToken = new Token('Exception', `${this.EXCEPTION_MESSAGE} '${this.string}'`)
     this.addTokenToCollection(exceptionToken)
   }
 
