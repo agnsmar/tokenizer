@@ -18,21 +18,23 @@ export class Tokenizer {
       while (this.string.length > 0) {
         const matchedTokens = this.matchStringToAllKnownTypes(types)
 
-        // Split this off.
-        if (matchedTokens.length === 1) {
-          this.thereIsOneMatchedToken(matchedTokens[0])
-        } else if (matchedTokens.length > 1) {
-          this.thereAreManyMatchedTokens(matchedTokens)
-        } else if (matchedTokens.length === 0) {
-          this.thereAreNoMatchedTokens()
-          throw new Error(`No lexical element matches '${this.string}'`)
-        }
-
+        this.determineMatchedTokenCountAndAddLongestTokenToCollection(matchedTokens)
         this._trimString()
       }
       this.addTokenToCollection(this.endToken)
     } catch (error) {
 
+    }
+  }
+
+  determineMatchedTokenCountAndAddLongestTokenToCollection (matchedTokens) {
+    if (matchedTokens.length === 1) {
+      this.thereIsOneMatchedToken(matchedTokens[0])
+    } else if (matchedTokens.length > 1) {
+      this.thereAreManyMatchedTokens(matchedTokens)
+    } else if (matchedTokens.length === 0) {
+      this.thereAreNoMatchedTokens()
+      throw new Error(`No lexical element matches '${this.string}'`)
     }
   }
 
