@@ -28,13 +28,11 @@ export class Tokenizer {
   }
 
   determineMatchedTokenCountAndAddLongestTokenToCollection (matchedTokens) {
-    if (matchedTokens.length === 1) {
-      this.thereIsOneMatchedToken(matchedTokens[0])
-    } else if (matchedTokens.length > 1) {
-      this.thereAreManyMatchedTokens(matchedTokens)
-    } else if (matchedTokens.length === 0) {
-      this.thereAreNoMatchedTokens()
+    if (this.thereAreNoMatchedTokens(matchedTokens)) {
+      this.createAndAddExceptionToken()
       throw new Error(`No lexical element matches '${this.string}'`)
+    } else {
+      this.addLongestTokenToCollection(matchedTokens)
     }
   }
 
@@ -51,12 +49,11 @@ export class Tokenizer {
     return matchedTokens
   }
 
-  thereIsOneMatchedToken (token) {
-    this.addTokenToCollection(token)
-    this._removeValueFromString(token.value)
+  thereAreNoMatchedTokens (tokens) {
+    return tokens.length === 0
   }
 
-  thereAreManyMatchedTokens (tokens) {
+  addLongestTokenToCollection (tokens) {
     let tokenWithMostMatchedCharacters = tokens[0]
 
     tokens.forEach(token => {
@@ -69,7 +66,7 @@ export class Tokenizer {
     this._removeValueFromString(tokenWithMostMatchedCharacters.value)
   }
 
-  thereAreNoMatchedTokens () {
+  createAndAddExceptionToken () {
     const exceptionToken = new Token('Exception', `No lexical element matches '${this.string}'`)
     this.addTokenToCollection(exceptionToken)
   }
