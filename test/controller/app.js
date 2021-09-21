@@ -1,7 +1,7 @@
-import { Grammar } from '../src/Grammar.js'
-import { Tokenizer } from '../src/Tokenizer.js'
-import { TokenType } from '../src/TokenType.js'
-import { ConsoleUI } from './view/ConsoleUI.js'
+import { Grammar } from '../../src/Grammar.js'
+import { Tokenizer } from '../../src/Tokenizer.js'
+import { TokenType } from '../../src/TokenType.js'
+import { ConsoleUI } from '../view/ConsoleUI.js'
 
 // wordAndDotGrammar Example
 const word = new TokenType('WORD', /^[a-zA-Z|åäöÅÄÖ]+/)

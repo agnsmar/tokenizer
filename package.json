@@ -2,13 +2,13 @@
   "name": "lab1",
   "version": "1.0.0",
   "description": "1dv610- Assignment 1 - Tokenizer",
-  "main": "test/app.js",
+  "main": "test/controller/app.js",
   "type": "module",
   "scripts": {
-    "start": "node test/app.js",
+    "start": "node test/controller/app.js",
     "lint": "npx eslint ./ || exit 0",
     "lint:fix": "npx eslint ./ --fix || exit 0",
-    "test": "npx mocha --recursive || exit 0"
+    "test": "npx mocha test/Tokenizer.test.js || exit 0"
   },
   "repository": {
     "type": "git",
