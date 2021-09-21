@@ -1,16 +1,8 @@
-import { Grammar } from '../../src/Grammar.js'
 import { Tokenizer } from '../../src/Tokenizer.js'
-import { TokenType } from '../../src/TokenType.js'
 import { ConsoleUI } from '../view/ConsoleUI.js'
+import * as grammar from '../exampleGrammars.js'
 
-// wordAndDotGrammar Example
-const word = new TokenType('WORD', /^[a-zA-Z|åäöÅÄÖ]+/)
-const dot = new TokenType('DOT', /^\./)
-const wordAndDotGrammar = new Grammar()
-wordAndDotGrammar.addTokenType(word)
-wordAndDotGrammar.addTokenType(dot)
-
-const textTokenizer = new Tokenizer(wordAndDotGrammar, 'Meningen består av ord. 123 test test')
+const textTokenizer = new Tokenizer(grammar.wordAndDot, 'Meningen består av ord. 123 test test')
 
 const ui = new ConsoleUI()
 const MOVER_CHARS = {
