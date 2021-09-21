@@ -7,7 +7,7 @@ export class ConsoleUI {
 
   printActiveToken (token) {
     console.clear()
-    console.log(`Active Token:\nType:\t${token.type}\nValue:\t${token.value}`)
+    console.log(`--Active Token--\nType:\t${token.type}\nValue:\t${token.value}`)
   }
 
   printIndex (index) {

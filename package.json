@@ -2,10 +2,10 @@
   "name": "lab1",
   "version": "1.0.0",
   "description": "1dv610- Assignment 1 - Tokenizer",
-  "main": "src/app.js",
+  "main": "test/app.js",
   "type": "module",
   "scripts": {
-    "start": "node src/app.js",
+    "start": "node test/app.js",
     "lint": "npx eslint ./src || exit 0",
     "lint:fix": "npx eslint ./src --fix || exit 0",
     "test": "npx mocha --recursive || exit 0"

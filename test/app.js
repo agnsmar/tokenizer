@@ -1,6 +1,6 @@
-import { Grammar } from './Grammar.js'
-import { Tokenizer } from './Tokenizer.js'
-import { TokenType } from './TokenType.js'
+import { Grammar } from '../src/Grammar.js'
+import { Tokenizer } from '../src/Tokenizer.js'
+import { TokenType } from '../src/TokenType.js'
 import { ConsoleUI } from './view/ConsoleUI.js'
 
 // wordAndDotGrammar Example
@@ -10,7 +10,7 @@ const wordAndDotGrammar = new Grammar()
 wordAndDotGrammar.addTokenType(word)
 wordAndDotGrammar.addTokenType(dot)
 
-const textTokenizer = new Tokenizer(wordAndDotGrammar, 'Meningen består av ord.')
+const textTokenizer = new Tokenizer(wordAndDotGrammar, 'Meningen består av ord. 123 test test')
 
 const ui = new ConsoleUI()
 const MOVER_CHARS = {
