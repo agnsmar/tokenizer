@@ -158,10 +158,10 @@ describe('arithmetic [Example 2]', () => {
   })
 })
 
-describe('maximalMunch [Example 3]', () => {
+describe('maximalMunchTester [Example 3]', () => {
   describe('return value', () => {
     it('[TC23]: \'3.14\' [] should return FLOAT(\'3.14\')', () => {
-      const maximalMunchTokenizer = new Tokenizer(grammar.maximalMunch, '3.14 5')
+      const maximalMunchTokenizer = new Tokenizer(grammar.maximalMunchTester, '3.14 5')
 
       expect(maximalMunchTokenizer.getActiveToken()).to.eql({ type: 'FLOAT', value: '3.14' })
     })

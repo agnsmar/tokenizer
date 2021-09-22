@@ -15,8 +15,8 @@ export const arithmetic = [
   { name: 'CLOSEPAR', regex: /^[)]/ }
 ]
 
-// Maximal Munch Grammar.
-export const maximalMunch = [
+// Maximal Munch Tester Grammar.
+export const maximalMunchTester = [
   { name: 'FLOAT', regex: /^[0-9]+\.[0-9]+/ },
   { name: 'INTEGER', regex: /^[0-9]+/ }
 ]
