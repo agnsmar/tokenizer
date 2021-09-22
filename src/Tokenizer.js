@@ -15,7 +15,7 @@ export class Tokenizer {
 
   _tokenize () {
     try {
-      const types = this.grammar.getTokenTypes()
+      const types = this.grammar
       while (this.string.length > 0) {
         const matchedTokens = this.matchStringToAllKnownTypes(types)
 
