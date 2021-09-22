@@ -10,7 +10,7 @@ export class ConsoleUI {
   }
 
   printWelcome () {
-    console.log('Welcome to the Tokenizer lmao')
+    console.log('Welcome to the Tokenizer!')
   }
 
   printActiveToken (token) {
@@ -30,7 +30,7 @@ export class ConsoleUI {
   }
 
   async getInputStringToTokenize () {
-    return new Promise(resolve => this.rl.question('input: ', ans => {
+    return new Promise(resolve => this.rl.question('Please input string to tokenize: ', ans => {
       this.rl.close()
       resolve(ans)
     }))

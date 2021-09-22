@@ -13,10 +13,10 @@ export class TestController {
     ui.printWelcome()
     const string = await ui.getInputStringToTokenize()
     const tokenizer = new Tokenizer(grammar.wordAndDot, string)
-    this.doBusiness(ui, tokenizer, string)
+    this.navigateTokens(ui, tokenizer, string)
   }
 
-  doBusiness (ui, tokenizer, string) {
+  navigateTokens (ui, tokenizer, string) {
     do {
       ui.clearConsole()
       ui.printString(string)
