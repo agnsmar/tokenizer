@@ -2,7 +2,7 @@ import { Grammar } from '../src/Grammar.js'
 import { TokenType } from '../src/TokenType.js'
 
 // Word and Dot grammar.
-const word = new TokenType('WORD', /^[\w|åäöÅÄÖ]+/)
+const word = new TokenType('WORD', /^[a-zA-Z|åäöÅÄÖ]+/)
 const dot = new TokenType('DOT', /^\./)
 export const wordAndDot = new Grammar()
 wordAndDot.addTokenType(word)
