@@ -22,7 +22,7 @@ export class ConsoleUI {
   }
 
   printString (string) {
-    console.log(string)
+    console.log(`'${string}'`)
   }
 
   printIndex (index) {
