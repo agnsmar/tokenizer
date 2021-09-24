@@ -20,7 +20,7 @@ export class TestController {
     let done = false
     do {
       ui.clearConsole()
-      ui.printString(string)
+      ui.printStringBeingTokenized(string)
       ui.printActiveToken(this.tokenizer.getActiveToken())
       ui.printIndex(this.tokenizer.activeTokenIndex)
       const direction = ui.getInputChar(this.MOVER_CHARS)

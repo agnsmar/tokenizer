@@ -21,8 +21,8 @@ export class ConsoleUI {
     console.clear()
   }
 
-  printString (string) {
-    console.log(`'${string}'`)
+  printStringBeingTokenized (string) {
+    console.log(`String being tokenized: '${string}'`)
   }
 
   printIndex (index) {
