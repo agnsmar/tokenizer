@@ -12,22 +12,22 @@ export class TestController {
   async start (ui) {
     ui.printWelcome()
     const string = await ui.getInputStringToTokenize()
-    const tokenizer = new Tokenizer(grammar.wordAndDot, string)
-    this.navigateTokens(ui, tokenizer, string)
+    this.tokenizer = new Tokenizer(grammar.wordAndDot, string)
+    this.navigateTokens(ui, string)
   }
 
-  navigateTokens (ui, tokenizer, string) {
+  navigateTokens (ui, string) {
     do {
       ui.clearConsole()
       ui.printString(string)
-      ui.printActiveToken(tokenizer.getActiveToken())
-      ui.printIndex(tokenizer.activeTokenIndex)
+      ui.printActiveToken(this.tokenizer.getActiveToken())
+      ui.printIndex(this.tokenizer.activeTokenIndex)
       const direction = ui.getInputChar(this.MOVER_CHARS)
 
       if (direction === this.MOVER_CHARS.next) {
-        tokenizer.moveNext()
+        this.tokenizer.moveNext()
       } else if (direction === this.MOVER_CHARS.back) {
-        tokenizer.moveBack()
+        this.tokenizer.moveBack()
       } else {
         break
       }
