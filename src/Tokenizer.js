@@ -33,7 +33,9 @@ export class Tokenizer {
       this.createAndAddExceptionToken()
       throw new Error(`${this.EXCEPTION_MESSAGE} '${this.string}'`)
     } else {
-      this.addLongestTokenToCollection(matchedTokens)
+      const token = this._getTokenWithMostCharacters(matchedTokens)
+      this.addTokenToCollection(token)
+      this._removeValueFromString(token.value)
     }
   }
 
@@ -54,7 +56,7 @@ export class Tokenizer {
     return tokens.length === 0
   }
 
-  addLongestTokenToCollection (tokens) {
+  _getTokenWithMostCharacters (tokens) {
     let tokenWithMostMatchedCharacters = tokens[0]
 
     tokens.forEach(token => {
@@ -63,8 +65,7 @@ export class Tokenizer {
       }
     })
 
-    this.addTokenToCollection(tokenWithMostMatchedCharacters)
-    this._removeValueFromString(tokenWithMostMatchedCharacters.value)
+    return tokenWithMostMatchedCharacters
   }
 
   createAndAddExceptionToken () {
