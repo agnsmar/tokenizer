@@ -17,6 +17,7 @@ export class TestController {
   }
 
   navigateTokens (ui, string) {
+    let done = false
     do {
       ui.clearConsole()
       ui.printString(string)
@@ -24,13 +25,16 @@ export class TestController {
       ui.printIndex(this.tokenizer.activeTokenIndex)
       const direction = ui.getInputChar(this.MOVER_CHARS)
 
-      if (direction === this.MOVER_CHARS.next) {
-        this.tokenizer.moveNext()
-      } else if (direction === this.MOVER_CHARS.back) {
-        this.tokenizer.moveBack()
-      } else {
-        break
+      switch (direction) {
+        case this.MOVER_CHARS.next:
+          this.tokenizer.moveNext()
+          break
+        case this.MOVER_CHARS.back:
+          this.tokenizer.moveBack()
+          break
+        default:
+          done = true
       }
-    } while (true)
+    } while (!done)
   }
 }
