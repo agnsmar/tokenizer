@@ -76,6 +76,12 @@ export class Tokenizer {
     this.string = this.string.replace(tokenValueToRemove, '')
   }
 
+  /**
+   * Returns resulting array of Tokens from the tokenized input string.
+   *
+   * @return {Token[]} Array of Tokens.
+   * @memberof Tokenizer
+   */
   getTokens () {
     return this.tokens
   }
@@ -96,10 +102,23 @@ export class Tokenizer {
     this.tokens.push(token)
   }
 
+  /**
+   * Returns the active token.
+   *
+   * @return {Token} The active token.
+   * @memberof Tokenizer
+   */
   getActiveToken () {
     return this.tokens[this.activeTokenIndex]
   }
 
+  /**
+   * Move active token forward by amount of steps specified in argument,
+   * if no argument is provided this will default to 1 step.
+   *
+   * @param {number} [steps=1] - Steps to move, defaults to 1 if not provided.
+   * @memberof Tokenizer
+   */
   moveNext (steps = 1) {
     for (let step = 0; step < steps; step++) {
       if (this.activeTokenIndex < this.tokens.length - 1) {
@@ -108,6 +127,13 @@ export class Tokenizer {
     }
   }
 
+  /**
+   * Move active token backwards by amount of steps specified in argument,
+   * if no argument is provided this will default to 1 step.
+   *
+   * @param {number} [steps=1] - Steps to move, defaults to 1 if not provided.
+   * @memberof Tokenizer
+   */
   moveBack (steps = 1) {
     for (let step = 0; step < steps; step++) {
       if (this.activeTokenIndex > 0) {
