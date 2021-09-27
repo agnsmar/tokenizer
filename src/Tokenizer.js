@@ -31,7 +31,7 @@ export class Tokenizer {
       }
       this._addTokenToCollection(this.endToken)
     } catch (error) {
-      console.error(error.message)
+
     }
   }
 
