@@ -165,33 +165,74 @@ describe('maximalMunchTester [Example 3]', () => {
 
       expect(maximalMunchTokenizer.getActiveToken()).to.eql({ type: 'FLOAT', value: '3.14' })
     })
+
+    it('[TC24]: \'13.9    14\' [>] should return INTEGER(\'14\')', () => {
+      const maximalMunchTokenizer = new Tokenizer(grammar.maximalMunchTester, '13.9    14')
+
+      maximalMunchTokenizer.moveNext()
+      expect(maximalMunchTokenizer.getActiveToken()).to.eql({ type: 'INTEGER', value: '14' })
+    })
+
+    it('[TC25]: \'0.1 0.2 13 0.1000\' [>>>] should return FLOAT(\'0.1000\')', () => {
+      const maximalMunchTokenizer = new Tokenizer(grammar.maximalMunchTester, '0.1 0.2 13 0.1000')
+
+      maximalMunchTokenizer.moveNext(3)
+      expect(maximalMunchTokenizer.getActiveToken()).to.eql({ type: 'FLOAT', value: '0.1000' })
+    })
+
+    it('[TC26]: \'10 9,2\' [>>] should return Exception(\'No lexical element matches \',2\'\')', () => {
+      const maximalMunchTokenizer = new Tokenizer(grammar.maximalMunchTester, '10 9,2')
+
+      maximalMunchTokenizer.moveNext(2)
+      expect(maximalMunchTokenizer.getActiveToken()).to.eql({ type: 'Exception', value: 'No lexical element matches \',2\'' })
+    })
+
+    it('[TC27]: \'192.168.1.1\' [] should return FLOAT(\'192.168\')', () => {
+      const maximalMunchTokenizer = new Tokenizer(grammar.maximalMunchTester, '192.168.1.1')
+
+      expect(maximalMunchTokenizer.getActiveToken()).to.eql({ type: 'FLOAT', value: '192.168' })
+    })
+
+    it('[TC28]: \'192.168.1.1\' [>] should return Exception(\'No lexical element matches \'.1.1\'\')', () => {
+      const maximalMunchTokenizer = new Tokenizer(grammar.maximalMunchTester, '192.168.1.1')
+
+      maximalMunchTokenizer.moveNext()
+      expect(maximalMunchTokenizer.getActiveToken()).to.eql({ type: 'Exception', value: 'No lexical element matches \'.1.1\'' })
+    })
+
+    it('[TC29]: \'0 .1\' [>] should return Exception(\'No lexical element matches \'.1\'\')', () => {
+      const maximalMunchTokenizer = new Tokenizer(grammar.maximalMunchTester, '0 .1')
+
+      maximalMunchTokenizer.moveNext()
+      expect(maximalMunchTokenizer.getActiveToken()).to.eql({ type: 'Exception', value: 'No lexical element matches \'.1\'' })
+    })
   })
 })
 
 describe('moveBack() and moveNext()', () => {
   describe('return value', () => {
-    it('\'Hello everyone.\' [>>] should return DOT(\'.\')', () => {
+    it('[TC30]\'Hello everyone.\' [>>] should return DOT(\'.\')', () => {
       const wordAndDotTokenizer = new Tokenizer(grammar.wordAndDot, 'Hello everyone.')
 
       wordAndDotTokenizer.moveNext(2)
       expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'DOT', value: '.' })
     })
 
-    it('\'Hello everyone.\' [>>>] should return END(\'null\')', () => {
+    it('[TC31]\'Hello everyone.\' [>>>] should return END(\'null\')', () => {
       const wordAndDotTokenizer = new Tokenizer(grammar.wordAndDot, 'Hello everyone.')
 
       wordAndDotTokenizer.moveNext(3)
       expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
     })
 
-    it('\'Hello everyone.\' [>>>>>] should return END(\'null\')', () => {
+    it('[TC32]\'Hello everyone.\' [>>>>>] should return END(\'null\')', () => {
       const wordAndDotTokenizer = new Tokenizer(grammar.wordAndDot, 'Hello everyone.')
 
       wordAndDotTokenizer.moveNext(5)
       expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
     })
 
-    it('\'Hello everyone.\' [>>><<>>>>] should return END(\'null\')', () => {
+    it('[TC33]\'Hello everyone.\' [>>><<>>>>] should return END(\'null\')', () => {
       const wordAndDotTokenizer = new Tokenizer(grammar.wordAndDot, 'Hello everyone.')
 
       wordAndDotTokenizer.moveNext(3)
@@ -200,21 +241,21 @@ describe('moveBack() and moveNext()', () => {
       expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
     })
 
-    it('\'Goodbye everybody.\' [<] should return WORD(\'Goodbye\')', () => {
+    it('[TC34]\'Goodbye everybody.\' [<] should return WORD(\'Goodbye\')', () => {
       const wordAndDotTokenizer = new Tokenizer(grammar.wordAndDot, 'Goodbye everybody.')
 
       wordAndDotTokenizer.moveBack()
       expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'Goodbye' })
     })
 
-    it('\'Goodbye everybody.\' [<<<] should return WORD(\'Goodbye\')', () => {
+    it('[TC35]\'Goodbye everybody.\' [<<<] should return WORD(\'Goodbye\')', () => {
       const wordAndDotTokenizer = new Tokenizer(grammar.wordAndDot, 'Goodbye everybody.')
 
       wordAndDotTokenizer.moveBack(3)
       expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'Goodbye' })
     })
 
-    it('\'Goodbye everybody.\' [>>><<<<] should return WORD(\'Goodbye\')', () => {
+    it('[TC36]\'Goodbye everybody.\' [>>><<<<] should return WORD(\'Goodbye\')', () => {
       const wordAndDotTokenizer = new Tokenizer(grammar.wordAndDot, 'Goodbye everybody.')
 
       wordAndDotTokenizer.moveNext(3)
@@ -222,7 +263,7 @@ describe('moveBack() and moveNext()', () => {
       expect(wordAndDotTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'Goodbye' })
     })
 
-    it('\'Hello again everybody.\' [<<<<>] should return WORD(\'again\')', () => {
+    it('[TC37]\'Hello again everybody.\' [<<<<>] should return WORD(\'again\')', () => {
       const wordAndDotTokenizer = new Tokenizer(grammar.wordAndDot, 'Hello again everybody.')
 
       wordAndDotTokenizer.moveBack(3)
