@@ -64,7 +64,7 @@ describe('wordAndDot [Example 1]', () => {
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
     })
 
-    it('[TC10]: \'a\' [<] should return END(\'null\')', () => {
+    it('[TC10]: \'a\' [<] should return WORD(\'a\')', () => {
       const textTokenizer = new Tokenizer(grammar.wordAndDot, 'a')
       textTokenizer.moveBack()
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'a' })
