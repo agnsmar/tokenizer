@@ -2,7 +2,7 @@
   "name": "lab1",
   "version": "1.0.0",
   "description": "1dv610- Assignment 1 - Tokenizer",
-  "main": "test/controller/app.js",
+  "main": "src/Tokenizer.js",
   "type": "module",
   "scripts": {
     "start": "echo No start script specified, control package.json scripts",
