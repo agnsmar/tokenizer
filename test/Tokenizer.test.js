@@ -64,10 +64,10 @@ describe('wordAndDot [Example 1]', () => {
       expect(textTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
     })
 
-    it('[TC10]: \'a\' [>] should return END(\'null\')', () => {
+    it('[TC10]: \'a\' [<] should return END(\'null\')', () => {
       const textTokenizer = new Tokenizer(grammar.wordAndDot, 'a')
-      textTokenizer.moveNext()
-      expect(textTokenizer.getActiveToken()).to.eql({ type: 'END', value: null })
+      textTokenizer.moveBack()
+      expect(textTokenizer.getActiveToken()).to.eql({ type: 'WORD', value: 'a' })
     })
 
     it('[TC11]: \'!\' [] should return Exception(\'No lexical element matches \'!\'\')', () => {
