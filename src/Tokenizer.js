@@ -16,7 +16,7 @@ export class Tokenizer {
   _startTokenization () {
     try {
       while (this.string.length > 0) {
-        const matchedTokens = this._matchStringToAllKnownTypes(this.grammar)
+        const matchedTokens = this._matchStringToAllKnownTokenTypes(this.grammar)
 
         if (this._thereAreNoMatchedTokens(matchedTokens)) {
           const exceptionToken = this._createExceptionToken()
@@ -35,10 +35,10 @@ export class Tokenizer {
     }
   }
 
-  _matchStringToAllKnownTypes (types) {
+  _matchStringToAllKnownTokenTypes (types) {
     const matchedTokens = []
     types.forEach(type => {
-      const tokenValue = this._matchTokenToRegex(type.regex)
+      const tokenValue = this._matchStringAgainstRegex(type.regex)
       if (tokenValue) {
         const token = new Token(type.name, tokenValue)
         matchedTokens.push(token)
@@ -70,21 +70,11 @@ export class Tokenizer {
     this.string = this.string.replace(tokenValueToRemove, '')
   }
 
-  /**
-   * Returns resulting array of Tokens from the tokenized input string.
-   *
-   * @return {Token[]} Array of Tokens.
-   * @memberof Tokenizer
-   */
-  getTokens () {
-    return this.tokens
-  }
-
   _trimString () {
     this.string = this.string.trim()
   }
 
-  _matchTokenToRegex (regex) {
+  _matchStringAgainstRegex (regex) {
     let token = this.string.match(regex)
     if (token) {
       token = token[0]
@@ -134,5 +124,15 @@ export class Tokenizer {
         this.activeTokenIndex--
       }
     }
+  }
+
+  /**
+   * Returns resulting array of Tokens from the tokenized input string.
+   *
+   * @return {Token[]} Array of Tokens.
+   * @memberof Tokenizer
+   */
+  getTokens () {
+    return this.tokens
   }
 }
