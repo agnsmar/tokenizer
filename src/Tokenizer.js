@@ -97,33 +97,51 @@ export class Tokenizer {
   }
 
   /**
-   * Move active token forward by amount of steps specified in argument,
+   * Moves active token forward by amount of steps specified in argument,
    * if no argument is provided this will default to 1 step.
+   *
+   * In case of attempting to move beyond last token in list,
+   * active token remains on end of list.
    *
    * @param {number} [steps=1] - Steps to move, defaults to 1 if not provided.
    * @memberof Tokenizer
    */
   moveNext (steps = 1) {
     for (let step = 0; step < steps; step++) {
-      if (this.activeTokenIndex < this.tokens.length - 1) {
+      if (this._isOnLastToken()) {
+        break
+      } else {
         this.activeTokenIndex++
       }
     }
   }
 
+  _isOnLastToken () {
+    return this.activeTokenIndex >= this.tokens.length - 1
+  }
+
   /**
-   * Move active token backwards by amount of steps specified in argument,
+   * Moves active token backwards by amount of steps specified in argument,
    * if no argument is provided this will default to 1 step.
+   *
+   * In case of attempting to move further back than first token in
+   * list, active token remains on position 1 (index 0).
    *
    * @param {number} [steps=1] - Steps to move, defaults to 1 if not provided.
    * @memberof Tokenizer
    */
   moveBack (steps = 1) {
     for (let step = 0; step < steps; step++) {
-      if (this.activeTokenIndex > 0) {
+      if (this._isOnFirstToken()) {
+        break
+      } else {
         this.activeTokenIndex--
       }
     }
+  }
+
+  _isOnFirstToken () {
+    return this.activeTokenIndex <= 0
   }
 
   /**
