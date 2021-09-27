@@ -1,86 +1,70 @@
-# Release
+# Mall för inlämning laboration 1, 1dv610
 
-<!--
-In this file, you indicate the status of your assignment by filling in the required text, dates and so on. 
+## Checklista
+  - [ ] I min tokeniserare finns inga tokentyper eller reg-exp. Dessa finns i mitt testprojekt eftersom de skapas utav användaren.
+  - [ ] Jag har skrivit all kod och reflektioner själv. Jag har inte använt mig av andras kod för att lösa uppgiften.
+  - [ ] Mina testresultat är skrivna utifrån utförd testning ( och inte teoretiskt, det bör fungera :) )
+  - [ ] De enda statiska metoder eller funktioner utanför klasser som jag har är för att starta upp min testapplikation ex main(java).
+  - [ ] De enda bibliotek och färdiga klasser som används är sådana som måste användas (eller som används för att testa modulen).
 
-You may write in {Swedish or English} and you are free to remove the comments if you like.
--->
+## Egenskattning och mål
+  - [ ] Jag är inte klar eftersom jag vet att jag saknar något. Då skall du inte lämna in!
+  - [ ] Jag eftersträvar med denna inlämning godkänt betyg (E-D)
+    - [ ] De flesta testfall fungerar
+    - [ ] Koden är förberedd på Återanvändning
+    - [ ] All kod samt historik finns i git 
+    - [ ] Kodkvaliterskraven är ifyllda
+    - [ ] Reflektion är skriven
+  - [ ] Jag eftersträvar med denna inlämning högre betyg (C-B) och anser mig uppfylla alla extra krav för detta. 
+    - [ ] Samtliga testfall är skrivna
+    - [ ] Egna testfall för Maximal munch och kantfall
+    - [ ] Testfall är automatiserade
+    - [ ] Det finns en tydlig beskrivning i hur modulen skall användas (i git)
+    - [ ] Kodkvalitetskraven är varierade 
+  - [ ] Jag eftersträvar med denna inlämning högsta betyg (A) 
 
-## Release status
+Förtydligande: Examinator kommer sätta betyg oberoende på vad ni anser. 
 
-<!-- 
-To tell the examiner that your application is ready to be assessed, you must make a release by checking all the checkboxes below. 
-You check a checkbox by adding an "x" in the parentheses. 
--->
+## Återanvändning
+Beskriv hur du anpassat din kod och instruktioner för att någon annan programmerare skall kunna använda din tokenizer. Om du skrivit instruktioner för din användare länka till dessa. Om inte beskriv här hur någon skall göra för att använda din kod med sin egen grammatik. 
 
-- [x]  I have started working on the assignment.
-- [ ]  All required functional requirements are fulfilled. (see below)
-- [ ]  All required non-functional requirements are fulfilled. (see below)
-- [ ]  I have completed the assignment report (see below).
+## Beskrivning av min kod
+Beskriv din kod på en hög abstraktionsnivå. En kort beskrivning av dina viktigaste klasser och metoder. Skapa gärna ett klassdiagram som bild. 
 
----
+## Hur jag testat
+Beskriv hur du kommit fram till om din kod fungerar.
 
-- [ ]  I intend to submit the assignment and at the same time I guarantee that I am the one who created the code that is submitted. In cases where I use external libraries or borrowed code from other sources, the source is clearly stated.
-(_Jag avser göra en inlämning av uppgiften och jag garanterar samtidigt att jag är den som skapat koden som lämnas in. I de fall jag använder externa bibliotek eller har lånat kod från andra källor så är källan tydligt angiven._)
+### Testfall
+Lista de enskilda testfallen. **Fetmarkera** sådant som du själv fyllt i. En rad per testfall.
 
----
+| Namn      | Grammatik | Sträng | Sekvens | Förväntat Aktivt Token | PASS/FAIL |
+| --------- | --------- | ------ | ------- | ------------ | --------- |
+|           |           |        |         |              |           |
 
-## Requirement fulfillment
+Du kan tillföra kommentarer om din tokeniserare skiljer sig något från standard. 
 
-<!-- Make sure that you have closed Issues that are required. If not, please comment below. -->
+### Testfall för högre betyg
 
-### Functional Requirements
+Lista de enskilda testfallen. En rad per testfall.
+| Namn      | Grammatik | Sträng | Sekvens | Förväntat Aktivt Token | PASS/FAIL |
+| --------- | --------- | ------ | ------- | ------------ | --------- |
+|           |           |        |         |              |           |
 
-| Issue ID   | Required | Comment              |
-|------------|----------|----------------------|
-| #1         | ✅       |                      |
-| #2         | ✅       |                      |
-| #3         | ✅       |                      |
-| #4         | ✅       |                      |
-| #5         | ✅       |                      |
-| #6         | ✅       |                      | 
-| #7         | ✅       |                      | 
-| #8         | ✅       |                      |
-| #9         | ✅       |                      |
-| #14        | ✅       |                      |
+## Kodkvalitetskrav
 
-### Non Functional Requirements
+**Fetmarkera** de "regler" som används ur CC. Ni kan frångå tabellformat om ni vill. Skapa direktlänkar till er kod där det är lämpligt. 
 
-| Issue ID   | Required | Comment              |
-|------------|----------|----------------------|
-| #10        | ✅       |                      |
-| #11        | ✅       |                      |
-| #12        |          |                      |
-| #13        | ✅       |                      |
+### Namngivning
 
-### Student defined requirements
+| Namn och förklaring  | Reflektion                                   |
+| -------------------  | ---------------------------------------------|
+|                      |                                              |
 
-<!-- 
-    If you have created your own requirements and added them as issues, reference them below. 
-    Remove this section if not needed.
--->
+### Funktioner
 
-| Issue ID   | Comment              |
-|------------|----------------------|
-| #X         |                      |
+| Metodnamn och förklaring  | Reflektion                                   |
+| -------------------  | ---------------------------------------------|
+|                      |                                              |
 
-## Assignment report
-
-<!-- In the assignment report, you reflect on your assignment. -->
-
-### Reflection
-
-<!-- Your own thoughts on the assignment. What was hard, what have you learned? What could you have done differently? -->
-
-
-### Further improvments
-
-<!-- Further improvements of the assignment. What could you have done, but did not have the time to complete? -->
-
-### Extras
-
-<!-- Have you done anything more than the requirements? Preferably, add each extra requirement as an issue and reference it here using # followed by the issue id. -->
-
-### Feedback
-
-<!-- Feedback to the course management about the assignment. -->
+## Laborationsreflektion
+Reflektera över uppgiften utifrån ett kodkvalitetsperspektiv. Använd begrepp ifrån boken. 
