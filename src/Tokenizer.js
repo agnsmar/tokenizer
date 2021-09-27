@@ -101,7 +101,7 @@ export class Tokenizer {
    * if no argument is provided this will default to 1 step.
    *
    * In case of attempting to move beyond last token in list,
-   * active token remains on end of list.
+   * active token pointer will not move and remains on final token of the list.
    *
    * @param {number} [steps=1] - Steps to move, defaults to 1 if not provided.
    * @memberof Tokenizer
@@ -125,7 +125,7 @@ export class Tokenizer {
    * if no argument is provided this will default to 1 step.
    *
    * In case of attempting to move further back than first token in
-   * list, active token remains on position 1 (index 0).
+   * list, active token pointer will not move and remains on position 1 (index 0).
    *
    * @param {number} [steps=1] - Steps to move, defaults to 1 if not provided.
    * @memberof Tokenizer
