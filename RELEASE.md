@@ -1,26 +1,26 @@
 # Mall för inlämning laboration 1, 1dv610
 
 ## Checklista
-  - [ ] I min tokeniserare finns inga tokentyper eller reg-exp. Dessa finns i mitt testprojekt eftersom de skapas utav användaren.
-  - [ ] Jag har skrivit all kod och reflektioner själv. Jag har inte använt mig av andras kod för att lösa uppgiften.
-  - [ ] Mina testresultat är skrivna utifrån utförd testning ( och inte teoretiskt, det bör fungera :) )
-  - [ ] De enda statiska metoder eller funktioner utanför klasser som jag har är för att starta upp min testapplikation ex main(java).
-  - [ ] De enda bibliotek och färdiga klasser som används är sådana som måste användas (eller som används för att testa modulen).
+  - [x] I min tokeniserare finns inga tokentyper eller reg-exp. Dessa finns i mitt testprojekt eftersom de skapas utav användaren.
+  - [x] Jag har skrivit all kod och reflektioner själv. Jag har inte använt mig av andras kod för att lösa uppgiften.
+  - [x] Mina testresultat är skrivna utifrån utförd testning ( och inte teoretiskt, det bör fungera :) )
+  - [x] De enda statiska metoder eller funktioner utanför klasser som jag har är för att starta upp min testapplikation ex main(java).
+  - [x] De enda bibliotek och färdiga klasser som används är sådana som måste användas (eller som används för att testa modulen).
 
 ## Egenskattning och mål
   - [ ] Jag är inte klar eftersom jag vet att jag saknar något. Då skall du inte lämna in!
   - [ ] Jag eftersträvar med denna inlämning godkänt betyg (E-D)
-    - [ ] De flesta testfall fungerar
-    - [ ] Koden är förberedd på Återanvändning
-    - [ ] All kod samt historik finns i git 
-    - [ ] Kodkvaliterskraven är ifyllda
+    - [x] De flesta testfall fungerar
+    - [x] Koden är förberedd på Återanvändning
+    - [x] All kod samt historik finns i git 
+    - [x] Kodkvaliterskraven är ifyllda
     - [ ] Reflektion är skriven
-  - [ ] Jag eftersträvar med denna inlämning högre betyg (C-B) och anser mig uppfylla alla extra krav för detta. 
-    - [ ] Samtliga testfall är skrivna
-    - [ ] Egna testfall för Maximal munch och kantfall
-    - [ ] Testfall är automatiserade
-    - [ ] Det finns en tydlig beskrivning i hur modulen skall användas (i git)
-    - [ ] Kodkvalitetskraven är varierade 
+  - [x] Jag eftersträvar med denna inlämning högre betyg (C-B) och anser mig uppfylla alla extra krav för detta. 
+    - [x] Samtliga testfall är skrivna
+    - [x] Egna testfall för Maximal munch och kantfall
+    - [x] Testfall är automatiserade
+    - [x] Det finns en tydlig beskrivning i hur modulen skall användas (i git)
+    - [x] Kodkvalitetskraven är varierade 
   - [ ] Jag eftersträvar med denna inlämning högsta betyg (A) 
 
 Förtydligande: Examinator kommer sätta betyg oberoende på vad ni anser. 
