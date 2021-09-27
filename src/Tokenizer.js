@@ -10,40 +10,35 @@ export class Tokenizer {
     this.EXCEPTION_MESSAGE = 'No lexical element matches'
 
     this._trimString()
-    this._tokenize()
+    this._startTokenization()
   }
 
-  _tokenize () {
+  _startTokenization () {
     try {
-      const types = this.grammar
       while (this.string.length > 0) {
-        const matchedTokens = this.matchStringToAllKnownTypes(types)
+        const matchedTokens = this._matchStringToAllKnownTypes(this.grammar)
 
-        this.determineMatchedTokenCountAndAddLongestTokenToCollection(matchedTokens)
+        if (this._thereAreNoMatchedTokens(matchedTokens)) {
+          const exceptionToken = this._createExceptionToken()
+          this._addTokenToCollection(exceptionToken)
+          throw new Error(`${this.EXCEPTION_MESSAGE} '${this.string}'`)
+        }
+
+        const token = this._getTokenWithMostCharacters(matchedTokens)
+        this._addTokenToCollection(token)
+        this._removeValueFromString(token.value)
         this._trimString()
       }
-      this.addTokenToCollection(this.endToken)
+      this._addTokenToCollection(this.endToken)
     } catch (error) {
-
+      console.error(error.message)
     }
   }
 
-  determineMatchedTokenCountAndAddLongestTokenToCollection (matchedTokens) {
-    if (this.thereAreNoMatchedTokens(matchedTokens)) {
-      const exceptionToken = this.createExceptionToken()
-      this.addTokenToCollection(exceptionToken)
-      throw new Error(`${this.EXCEPTION_MESSAGE} '${this.string}'`)
-    } else {
-      const token = this._getTokenWithMostCharacters(matchedTokens)
-      this.addTokenToCollection(token)
-      this._removeValueFromString(token.value)
-    }
-  }
-
-  matchStringToAllKnownTypes (types) {
+  _matchStringToAllKnownTypes (types) {
     const matchedTokens = []
     types.forEach(type => {
-      const tokenValue = this.matchTokenToRegex(type.regex)
+      const tokenValue = this._matchTokenToRegex(type.regex)
       if (tokenValue) {
         const token = new Token(type.name, tokenValue)
         matchedTokens.push(token)
@@ -52,7 +47,7 @@ export class Tokenizer {
     return matchedTokens
   }
 
-  thereAreNoMatchedTokens (tokens) {
+  _thereAreNoMatchedTokens (tokens) {
     return tokens.length === 0
   }
 
@@ -67,7 +62,7 @@ export class Tokenizer {
     return tokenWithMostMatchedCharacters
   }
 
-  createExceptionToken () {
+  _createExceptionToken () {
     return new Token('Exception', `${this.EXCEPTION_MESSAGE} '${this.string}'`)
   }
 
@@ -89,7 +84,7 @@ export class Tokenizer {
     this.string = this.string.trim()
   }
 
-  matchTokenToRegex (regex) {
+  _matchTokenToRegex (regex) {
     let token = this.string.match(regex)
     if (token) {
       token = token[0]
@@ -97,7 +92,7 @@ export class Tokenizer {
     return token
   }
 
-  addTokenToCollection (token) {
+  _addTokenToCollection (token) {
     this.tokens.push(token)
   }
 
