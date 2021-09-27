@@ -7,12 +7,20 @@ export class TestController {
       next: '>',
       back: '<'
     }
+
+    this.grammars = [
+      grammar.wordAndDot,
+      grammar.arithmetic,
+      grammar.maximalMunchTester
+    ]
   }
 
   async start (ui) {
     ui.printWelcome()
     const string = await ui.getInputStringToTokenize()
-    this.tokenizer = new Tokenizer(grammar.wordAndDot, string)
+    const chosenGrammar = await ui.getChosenGrammar()
+
+    this.tokenizer = new Tokenizer(this.grammars[chosenGrammar], string)
     this.navigateTokens(ui, string)
   }
 
@@ -23,8 +31,8 @@ export class TestController {
       ui.printStringBeingTokenized(string)
       ui.printActiveToken(this.tokenizer.getActiveToken())
       ui.printIndex(this.tokenizer.activeTokenIndex)
-      const direction = ui.getInputChar(this.MOVER_CHARS)
 
+      const direction = ui.getInputChar(this.MOVER_CHARS)
       switch (direction) {
         case this.MOVER_CHARS.next:
           this.tokenizer.moveNext()
