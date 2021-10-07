@@ -14,25 +14,21 @@ export class Tokenizer {
   }
 
   _startTokenization () {
-    try {
-      while (this.string.length > 0) {
-        const matchedTokens = this._matchStringToAllKnownTokenTypes(this.grammar)
+    while (this.string.length > 0) {
+      const matchedTokens = this._matchStringToAllKnownTokenTypes(this.grammar)
 
-        if (this._thereAreNoMatchedTokens(matchedTokens)) {
-          const exceptionToken = this._createExceptionToken()
-          this._addTokenToCollection(exceptionToken)
-          throw new Error(`${this.EXCEPTION_MESSAGE} '${this.string}'`)
-        }
-
-        const token = this._getTokenWithMostCharacters(matchedTokens)
-        this._addTokenToCollection(token)
-        this._removeValueFromString(token.value)
-        this._trimString()
+      if (this._thereAreNoMatchedTokens(matchedTokens)) {
+        const exceptionToken = this._createExceptionToken()
+        this._addTokenToCollection(exceptionToken)
+        break
       }
-      this._addTokenToCollection(this.endToken)
-    } catch (error) {
 
+      const token = this._getTokenWithMostCharacters(matchedTokens)
+      this._addTokenToCollection(token)
+      this._removeValueFromString(token.value)
+      this._trimString()
     }
+    this._addTokenToCollection(this.endToken)
   }
 
   _matchStringToAllKnownTokenTypes (types) {
