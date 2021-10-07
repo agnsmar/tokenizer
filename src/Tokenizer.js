@@ -13,6 +13,66 @@ export class Tokenizer {
     this._startTokenization()
   }
 
+  /**
+   * Returns the active token.
+   *
+   * @return {Token} The active token.
+   * @memberof Tokenizer
+   */
+  getActiveToken () {
+    return this.tokens[this.activeTokenIndex]
+  }
+
+  /**
+   * Moves active token forward by amount of steps specified in argument,
+   * if no argument is provided this will default to 1 step.
+   *
+   * In case of attempting to move beyond last token in list,
+   * active token pointer will not move and remains on final token of the list.
+   *
+   * @param {number} [steps=1] - Steps to move, defaults to 1 if not provided.
+   * @memberof Tokenizer
+   */
+  moveNext (steps = 1) {
+    for (let step = 0; step < steps; step++) {
+      if (this._isOnLastToken()) {
+        break
+      } else {
+        this.activeTokenIndex++
+      }
+    }
+  }
+
+  /**
+   * Moves active token backwards by amount of steps specified in argument,
+   * if no argument is provided this will default to 1 step.
+   *
+   * In case of attempting to move further back than first token in
+   * list, active token pointer will not move and remains on position 1 (index 0).
+   *
+   * @param {number} [steps=1] - Steps to move, defaults to 1 if not provided.
+   * @memberof Tokenizer
+   */
+  moveBack (steps = 1) {
+    for (let step = 0; step < steps; step++) {
+      if (this._isOnFirstToken()) {
+        break
+      } else {
+        this.activeTokenIndex--
+      }
+    }
+  }
+
+  /**
+   * Returns resulting array of Tokens from the tokenized input string.
+   *
+   * @return {Token[]} Array of Tokens.
+   * @memberof Tokenizer
+   */
+  getTokens () {
+    return this.tokens
+  }
+
   _startTokenization () {
     while (this.string.length > 0) {
       const matchedTokens = this._matchStringToAllKnownTokenTypes(this.grammar)
@@ -82,71 +142,11 @@ export class Tokenizer {
     this.tokens.push(token)
   }
 
-  /**
-   * Returns the active token.
-   *
-   * @return {Token} The active token.
-   * @memberof Tokenizer
-   */
-  getActiveToken () {
-    return this.tokens[this.activeTokenIndex]
-  }
-
-  /**
-   * Moves active token forward by amount of steps specified in argument,
-   * if no argument is provided this will default to 1 step.
-   *
-   * In case of attempting to move beyond last token in list,
-   * active token pointer will not move and remains on final token of the list.
-   *
-   * @param {number} [steps=1] - Steps to move, defaults to 1 if not provided.
-   * @memberof Tokenizer
-   */
-  moveNext (steps = 1) {
-    for (let step = 0; step < steps; step++) {
-      if (this._isOnLastToken()) {
-        break
-      } else {
-        this.activeTokenIndex++
-      }
-    }
-  }
-
   _isOnLastToken () {
     return this.activeTokenIndex >= this.tokens.length - 1
   }
 
-  /**
-   * Moves active token backwards by amount of steps specified in argument,
-   * if no argument is provided this will default to 1 step.
-   *
-   * In case of attempting to move further back than first token in
-   * list, active token pointer will not move and remains on position 1 (index 0).
-   *
-   * @param {number} [steps=1] - Steps to move, defaults to 1 if not provided.
-   * @memberof Tokenizer
-   */
-  moveBack (steps = 1) {
-    for (let step = 0; step < steps; step++) {
-      if (this._isOnFirstToken()) {
-        break
-      } else {
-        this.activeTokenIndex--
-      }
-    }
-  }
-
   _isOnFirstToken () {
     return this.activeTokenIndex <= 0
-  }
-
-  /**
-   * Returns resulting array of Tokens from the tokenized input string.
-   *
-   * @return {Token[]} Array of Tokens.
-   * @memberof Tokenizer
-   */
-  getTokens () {
-    return this.tokens
   }
 }
