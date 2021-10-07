@@ -1,5 +1,5 @@
 {
-  "name": "lab1",
+  "name": "@toastfairy/tokenizer",
   "version": "1.0.0",
   "description": "1dv610- Assignment 1 - Tokenizer",
   "main": "src/Tokenizer.js",
@@ -43,5 +43,7 @@
     },
     "rules": {}
   },
-  "dependencies": {}
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  }
 }
