@@ -13,10 +13,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.lnu.se:1dv610/student/dw222fy/l1.git"
+    "url": "git+ssh://git@github.com/toastfairy/tokenizer.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Denni Wernersson",
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.3.4",
@@ -44,6 +44,14 @@
     "rules": {}
   },
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
-  }
+    "registry": "https://npm.pkg.github.com"
+  },
+  "bugs": {
+    "url": "https://github.com/toastfairy/tokenizer/issues"
+  },
+  "homepage": "https://github.com/toastfairy/tokenizer#readme",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {}
 }
