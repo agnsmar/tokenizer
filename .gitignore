@@ -45,6 +45,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+###npmrc
+*.npmrc
+
 ### Node ###
 # Logs
 logs
