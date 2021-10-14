@@ -1,6 +1,6 @@
 {
-  "name": "@toastfairy/tokenizer",
-  "version": "1.0.0",
+  "name": "@toastfairy1697/tokenizer",
+  "version": "1.0.2",
   "description": "1dv610- Assignment 1 - Tokenizer",
   "main": "src/Tokenizer.js",
   "type": "module",
@@ -16,10 +16,11 @@
     "url": "git+ssh://git@github.com/toastfairy/tokenizer.git"
   },
   "keywords": [],
-  "author": "Denni Wernersson",
+  "author": "toastfairy1697",
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.3.4",
+    "dotenv": "^10.0.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.24.2",
@@ -42,16 +43,6 @@
       "sourceType": "module"
     },
     "rules": {}
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
-  "bugs": {
-    "url": "https://github.com/toastfairy/tokenizer/issues"
-  },
-  "homepage": "https://github.com/toastfairy/tokenizer#readme",
-  "directories": {
-    "test": "test"
   },
   "dependencies": {}
 }
