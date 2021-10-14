@@ -19,7 +19,7 @@ export class Tokenizer {
    * @return {Token} The active token.
    * @memberof Tokenizer
    */
-  getActiveToken () {
+  get activeToken () {
     return this.tokens[this.activeTokenIndex]
   }
 
